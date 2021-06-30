@@ -3,17 +3,18 @@ package com.revature.userPrompts;
 import java.util.Scanner;
 
 public class StartMenu {
-
+private RegisterMenu registerMenu = new RegisterMenu();
 	public void startMenu() {
 		try (Scanner scan = new Scanner(System.in)) {
-			System.out.println("\n*****Hello, Welcome to Revature2Vanquish Bank***** \n" + "\n" + 
-					"What would you like to do today? \n"
-					+ "1.Register" + "\n2.Login" + "\n3.Open a new account" + "\n4.Exit the bank");
+			System.out.println("\n*****Hello, Welcome to Revature2Vanquish Bank***** \n" ); 
+			System.err.println("What would you like to do today?");
+			System.out.println("1.Register" + "\n2.Login" + "\n3.Open a new account" + "\n4.Exit the bank");
 			int ans = scan.nextInt();
 
 			switch (ans) {
 			case 1:
-				System.out.println("Great, let's get started with Registration.");
+				System.out.println("Great, let's get started with Registration. ");
+				registerMenu.registrationMenu();
 				break;
 			
 			case 2:
