@@ -1,19 +1,26 @@
 package com.revature.customer;
 
+import java.util.Scanner;
+
+import com.revature.controllers.RegisterMenu;
+import com.revature.controllers.StartMenu;
+
 public class Register {
 	private String name;
-	private String password;
 	private String address;
+	private String password;
 	private String passConfirm;
 	private boolean isRegistered=false;
-	
-
+	private boolean passMatch=false;
+	private Scanner scan=new Scanner(System.in);
+	private RegisterMenu register =new RegisterMenu();
+	public StartMenu startMenu;
 	
 	public Register(String name,String address, String password,String passConfirm) {
 		this.name=name;
 		this.address=address;	
 		this.password=password;
-		this.passConfirm= passConfirm;
+		this.passConfirm= setPassConfirm(passConfirm);
 	}
 	
 	//Setters
@@ -27,26 +34,46 @@ public class Register {
 	
 	public void setPassword(String setPassword) {
 //String pw = setPassword.length()> 2 ? this.password=setPassword :System.out.println("Password must be more than 2 characters long")
-this.setPassword(setPassword);
-	if(setPassword.length() > 2) {
-		this.password=setPassword;
-	}else {
+
+	if(setPassword.length() <= 2) {
 		System.err.println("Password must be more than 2 characters long");
-		this.setPassword(setPassword);
+		//this.setPassword(setPassword);		
+	}else {
+		this.password=setPassword;
 	}	
 	}
 	
-	public void setPassConfirm(String setPassConfirm) {
-		this.passConfirm=setPassConfirm;
-		if(this.password.equals(this.passConfirm)) {
-			this.isRegistered=true;
-			System.err.println("Please confirm following details:");
-			System.out.println(this.getCustomer());
-		}else {
-			System.err.println("Passwords do not match, try again.");
-			setPassConfirm(passConfirm);
+	public String setPassConfirm(String setPassConfirm) {
+		//this.password=setPassConfirm;
+	
+		while(!this.passMatch) {
+			if(!(this.password.equals(setPassConfirm))) {
+				System.err.println("Passwords do not match, try again.");
+				System.out.println("Confirm password");
+				String passAns= scan.nextLine();
+				setPassConfirm(passAns);
+				
+			}else {
+				this.passMatch=true;					
+				}			
 		}
+		return setPassConfirm;
+		
 	}
+	
+public void setConfirm(String setConfirm) {	
+		if(setConfirm.equals("yes") || setConfirm.equals("1")) {
+			this.isRegistered=true;
+			System.out.println(this.isRegistered);
+			
+		}else {		
+			//this.setConfirm(setConfirm);
+			//this.getPassConfirm();
+			register.registrationMenu();
+		}
+		
+	}
+
 	//Getters
 	
 	public String getName() {
@@ -59,9 +86,21 @@ this.setPassword(setPassword);
 		return this.password;
 	}
 	
-	public String getCustomer() {
-		String details= "Name: " +this.name+"\n"+"Address: "+ this.address+"\\n"+
+	public String getCustomer() {		
+		String details= "Name: " +this.name+"\n"+"Address: "+ this.address+"\n"+
 	"Password: "+ this.password;		
 		return details;
 	}
+
+	public String getPassConfirm() {
+		return passConfirm;
+	}
+	
+	public boolean isRegister() {
+			return this.isRegistered;
+	}
+	
+
+	
+	
 }
