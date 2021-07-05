@@ -2,8 +2,8 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
-import com.revature.Main;
-import com.revature.customer.Register;
+import com.revature.Driver;
+import com.revature.models.Register;
 
 public class RegisterMenu {
 public Register customer1;
@@ -37,7 +37,7 @@ if(customer1.isRegister()){
 	int ans = scan.nextInt();
 	switch(ans) {
 	case 1:
-		Main.initMenu.startMenu();
+		Driver.initMenu.startMenu();
 		break;
 	case 2:
 		System.out.println("Going to application for new account");
@@ -46,7 +46,7 @@ if(customer1.isRegister()){
 		System.exit(0);
 		break;
 		default:
-			Main.initMenu.startMenu();
+			Driver.initMenu.startMenu();
 			break;
 	}	
 	}

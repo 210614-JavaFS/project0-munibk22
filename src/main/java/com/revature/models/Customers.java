@@ -1,4 +1,4 @@
-package com.revature.customer;
+package com.revature.models;
 
 public interface Customers {
 public String name = "";

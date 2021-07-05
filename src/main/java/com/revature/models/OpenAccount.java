@@ -1,4 +1,4 @@
-package com.revature.customer;
+package com.revature.models;
 
 public class OpenAccount {
 	private int checkingBalance;
