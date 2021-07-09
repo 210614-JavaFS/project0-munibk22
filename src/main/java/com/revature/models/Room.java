@@ -7,6 +7,6 @@ public abstract class Room {
 	public String longDesc;
 
 	public void returnMainMenu() {
-		Driver.initMenu.startMenu();
+//		Driver.initMenu.startMenu();
 	}
 }
