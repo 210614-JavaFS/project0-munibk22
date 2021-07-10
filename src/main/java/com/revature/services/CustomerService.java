@@ -7,27 +7,42 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.revature.models.Customers;
+import com.revature.controllers.BankCustomer;
+import com.revature.models.RegisterCustomer;
 
 public class CustomerService {
 //	Customers customer;
 	private static Logger log = LoggerFactory.getLogger(CustomerService.class);
 
+	public static RegisterCustomer createRegCustomer(String firstName, String setLastName, String setAddress,
+			String setPassword, String confirmAns, String userName) {
+
+		return new RegisterCustomer(firstName, setLastName, setPassword, setAddress, confirmAns, userName, false);
+	}
+
 //	public CustomerService(Customers customer2) {
 //		// TODO Auto-generated constructor stub
 //	}
 
-	public static Customers createNewCustomer(String firstName, String lastName, String address, String password,
-			String confirmAns) {
-		return new Customers(firstName, lastName, address, password, confirmAns);
-	}
+//	public static RegisteredCustomer createNewCustomer(String firstName, String lastName, String address, String password,
+//			String confirmAns) {
+//		return new Customers(firstName, lastName, address, password, confirmAns);
+//	}
 
-	public void setDeposit(Customers customer, String deposit) {
+	public void setDeposit(BankCustomer customerBank, String deposit) {
 //		customer.getBalance();
-		System.out.println("Old balance " + customer.getBalance());
+		System.out.println("Previous balance " + customerBank.getCheckingBalance());
 		int parseDeposit = Integer.parseInt(deposit);
-		customer.setBalance(customer.getBalance() + parseDeposit);
-		log.info("New balance " + customer.getBalance() + "\n");
+		if (parseDeposit != 0) {
+			customerBank.setCheckingBalance(customerBank.getCheckingBalance() + parseDeposit);
+
+			System.out.println("-----------------------------------");
+			log.info("New balance " + customerBank.getCheckingBalance() + "\n");
+			System.out.println("-----------------------------------");
+		} else {
+			System.out.println("Must deposit an amount greater than $0");
+		}
+
 	}
 //	public static Object createNewCustomer(String name, String address, String password) {
 //		// TODO Auto-generated method stub

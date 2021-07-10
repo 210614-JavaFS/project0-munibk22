@@ -5,21 +5,19 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.revature.models.Customers;
-import com.revature.utils.CustomerUtil;
+import com.revature.models.RegisterCustomer;
 
 public class BankMenuController {
 
 	private static Scanner scan = new Scanner(System.in);
 	private static Logger log = LoggerFactory.getLogger(BankMenuController.class);
 
-	public void bankMenu(Customers customer) {
-		while (customer.isRegister()) {
+	public void bankMenu(BankCustomer customerBank) {
 
-			boolean loggedIn = false;
+		while (customerBank.getReg()) {
 
 			ApplicationsController appController = new ApplicationsController();
-			System.out.println("***** Welcome " + customer.getFirstName() + " to Revature2Vanquish Bank***** \n");
+			System.out.println("***** Welcome " + customerBank.getFirstName() + " to Revature2Vanquish Bank***** \n");
 
 			System.out.println("What would you like to do today?");
 			System.out.println("1.Submit application for new account" + "\n2.Apply for a new account" + "\n3.Login"
@@ -29,36 +27,38 @@ public class BankMenuController {
 
 			switch (answer) {
 			case "1":
-				if (!customer.isRegister()) {
-					System.out.println("Excellent, " + customer.getFirstName()
-							+ " let's submit your application for approval. Most accounts are approved within 24 hours. ");
+//				if (!customerBank.isRegistered()) {
+				System.out.println("Excellent, " + customerBank.getFirstName()
+						+ " let's submit your application for approval. Most accounts are approved within 24 hours. ");
 //				customer = appController.getAppMenu(customer);
 //				registerMenu.registrationMenu();
-					break;
-				} else {
-					System.out.println("\nYou can: \n" + "1.Submit Application");
-					System.out.println(customer.getBalance());
-					break;
-				}
+				break;
+//				} else {
+//					System.out.println("\nYou can: \n" + "1.Submit Application");
+////					System.out.println(customerReg.getBalance());
+//					break;
+//				}
 
 			case "2":
 				System.out.println(
-						"Excellent, " + customer.getFirstName() + " let's get started with your new account. \n");
-				customer = appController.getAppMenu(customer);
+						"Excellent, " + customerBank.getFirstName() + " let's get started with your new account. \n");
+				customerBank = appController.getAppMenu(customerBank);
 				break;
 			case "3":
 				System.out.println("Great, let's login to your account.");
-				login(customer);
+				login(customerBank);
 
 				break;
 			case "4":
 				System.out.println("Thank you for visiting!");
-				System.exit(0);
+//				System.exit(0);
+				customerBank.setReg(false);
 				break;
 			default:
 				log.warn("User entered invalid  choice.");
 				System.out.println("Not a valid choice, please try again.");
-				bankMenu(customer);
+//				bankMenu(customerBank);
+				customerBank.setReg(false);
 				break;
 			}
 
@@ -76,20 +76,21 @@ public class BankMenuController {
 		}
 	}
 
-	private void login(Customers customer) {
+	private void login(BankCustomer customerBank) {
 
-		customer.setLoggedIn();
+		customerBank.setLoggedIn();
 		boolean menuController = true;
-
+//BankCustomer customerBank = new BankCustomer(customerBank.getFirstName(), customerBank.getLastName(),
+//				customerBank.getPassWord(), 200, "4241");
 		while (menuController) {
 //			CustomerUtil.customerUtil(customer);
-
-			customerController.getTransactionsMenu(customer);
+			if (customerBank.getLoggedIn()) {
+				System.out.println(
+						customerBank.getFirstName() + customerBank.getLastName() + " was logged out successfully! \n");
+				customerBank = customerController.getTransactionsMenu(customerBank);
+			}
 			menuController = false;
 
-		}
-		if (customer.getLoggedIn()) {
-			System.out.println(customer.getFirstName() + customer.getLastName() + " was logged out successfully! \n");
 		}
 
 	}

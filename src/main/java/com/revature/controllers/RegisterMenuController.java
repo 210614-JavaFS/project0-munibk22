@@ -2,8 +2,8 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 import com.revature.Driver;
-import com.revature.models.Customers;
 import com.revature.models.Register;
+import com.revature.models.RegisterCustomer;
 import com.revature.services.CustomerService;
 
 import jdk.internal.org.jline.utils.Log;
@@ -13,8 +13,8 @@ public class RegisterMenuController {
 	public StartMenuController start;
 	public Scanner scan = new Scanner(System.in);
 
-	public Customers registrationMenu() {
-		Customers customer1 = new Customers();
+	public RegisterCustomer registrationMenu() {
+		RegisterCustomer customer1 = new RegisterCustomer();
 
 		System.err.println("\n****Registration Form****");
 
@@ -38,9 +38,9 @@ public class RegisterMenuController {
 		customer1.setConfirm(confirmAns);
 //		Customers customer = new Customers(nameAns, passAns, addressAns, 100, 0);
 
-		if (customer1.isRegister()) {
+//		if (customer1.isRegistered()) {
 //			System.out.println("Customer " + customer1.getName() + " is registered.");
-			return customer1;
+		return customer1;
 //			System.err.println("\nExcellent, " + customer1.getName() + ", what would you like to do next:");
 //			System.out.println("1.Apply for new account  \n" + "2.Return to main menu \n" + "3.Leave Bank");
 //			String ans = scan.nextLine();
@@ -64,7 +64,7 @@ public class RegisterMenuController {
 //			registrationMenu();
 //		}
 
-		}
-		return customer1;
+//		}
+//		return customer1;
 	}
 }

@@ -26,14 +26,13 @@ public class Register {
 		this.address = address;
 		this.password = password;
 		this.passConfirm = setPassConfirm(passConfirm);
-		
-		
+
 	}
 
 	public Register() {
 		super();
 	}
-	
+
 //	public void createPlayer() {
 //		customer=CustomerService.createNewCustomer(this.name,this.address,this.password);
 //	}
@@ -95,7 +94,7 @@ public class Register {
 		} else {
 			// this.setConfirm(setConfirm);
 			// this.getPassConfirm();
-			register.registrationMenu();
+//			register.registrationMenu();
 		}
 
 	}
@@ -126,7 +125,5 @@ public class Register {
 	public boolean isRegister() {
 		return this.isRegistered;
 	}
-	
-	
 
 }
