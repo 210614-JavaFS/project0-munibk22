@@ -5,14 +5,13 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.revature.models.RegisterCustomer;
+import com.revature.models.BankCustomer;
+import com.revature.models.Customer;
 import com.revature.services.CustomerService;
 
-import jdk.internal.org.jline.utils.Log;
-
-public class customerController {
+public class CustomerController {
 	private static Scanner scan = new Scanner(System.in);
-	private static Logger log = LoggerFactory.getLogger(customerController.class);
+	private static Logger log = LoggerFactory.getLogger(CustomerController.class);
 
 	public static BankCustomer getTransactionsMenu(BankCustomer customerBank) {
 		CustomerService customerService = new CustomerService();

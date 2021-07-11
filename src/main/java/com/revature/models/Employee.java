@@ -1,13 +1,14 @@
 package com.revature.models;
 
-public abstract class Employee extends Character {
+import java.util.ArrayList;
+
+public class Employee extends Character {
 
 	private String department;
 	private int id;
 
 //Constructor
-	public Employee(String firstName, String lastName, String password, String confirmAns, boolean isLoggedIn,
-			String department, int id) {
+	public Employee(String firstName, String lastName, String password, String department, int id) {
 		super(firstName, lastName, password);
 		this.department = department;
 		this.id = id;

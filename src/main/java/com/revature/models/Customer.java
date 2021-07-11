@@ -5,17 +5,17 @@ package com.revature.models;
 //import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RegisterCustomer extends Character {
+public class Customer extends Character {
 //	private static Scanner scan = new Scanner(System.in);
 //	private static Logger log = LoggerFactory.getLogger(Character.class);
 
 	private String userName;
 	private String address;
 	private boolean isLoggedIn = false;
+	private String confirmAns;
 
 	// Constructor with fields
-	public RegisterCustomer(String firstName, String lastName, String password, String address, String confirmAns,
-			String userName, boolean isLoggedIn) {
+	public Customer(String firstName, String lastName, String password, String address, String userName) {
 		super(firstName, lastName, password);
 		this.address = address;
 //		setRegistered(setConfirm(confirmAns));
@@ -25,7 +25,7 @@ public class RegisterCustomer extends Character {
 	}
 
 	// No args Constructor
-	public RegisterCustomer() {
+	public Customer() {
 		super();
 	}
 
@@ -95,7 +95,7 @@ public class RegisterCustomer extends Character {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RegisterCustomer other = (RegisterCustomer) obj;
+		Customer other = (Customer) obj;
 		if (address == null) {
 			if (other.address != null)
 				return false;
@@ -117,6 +117,20 @@ public class RegisterCustomer extends Character {
 
 	public void setLoggedIn(boolean isLoggedIn) {
 		this.isLoggedIn = isLoggedIn;
+	}
+
+	/**
+	 * @return the confirmAns
+	 */
+	public String getConfirmAns() {
+		return confirmAns;
+	}
+
+	/**
+	 * @param confirmAns the confirmAns to set
+	 */
+	public void setConfirmAns(String confirmAns) {
+		this.confirmAns = confirmAns;
 	}
 
 }

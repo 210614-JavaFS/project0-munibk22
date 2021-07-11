@@ -5,7 +5,8 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.revature.models.RegisterCustomer;
+import com.revature.models.BankCustomer;
+import com.revature.models.Customer;
 
 public class BankMenuController {
 
@@ -21,7 +22,7 @@ public class BankMenuController {
 
 			System.out.println("What would you like to do today?");
 			System.out.println("1.Submit application for new account" + "\n2.Apply for a new account" + "\n3.Login"
-					+ "\n4.Exit the bank");
+					+ "\n4.Exit the Bank" + "\n5.Exit the Game");
 
 			String answer = scan.nextLine();
 
@@ -51,14 +52,16 @@ public class BankMenuController {
 				break;
 			case "4":
 				System.out.println("Thank you for visiting!");
-//				System.exit(0);
 				customerBank.setReg(false);
+				break;
+			case "5":
+				System.out.println("Thank you for visiting!");
+				System.exit(0);
 				break;
 			default:
 				log.warn("User entered invalid  choice.");
 				System.out.println("Not a valid choice, please try again.");
-//				bankMenu(customerBank);
-				customerBank.setReg(false);
+				bankMenu(customerBank);
 				break;
 			}
 
@@ -87,7 +90,7 @@ public class BankMenuController {
 			if (customerBank.getLoggedIn()) {
 				System.out.println(
 						customerBank.getFirstName() + customerBank.getLastName() + " was logged out successfully! \n");
-				customerBank = customerController.getTransactionsMenu(customerBank);
+				customerBank = CustomerController.getTransactionsMenu(customerBank);
 			}
 			menuController = false;
 

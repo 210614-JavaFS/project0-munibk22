@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import com.revature.models.RegisterCustomer;
 
+import com.revature.models.BankCustomer;
+
 public class ApplicationsController {
 	private static Scanner scan = new Scanner(System.in);
 	private static Logger log = LoggerFactory.getLogger(ApplicationsController.class);

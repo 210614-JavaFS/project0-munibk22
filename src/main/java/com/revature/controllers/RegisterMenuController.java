@@ -2,19 +2,18 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 import com.revature.Driver;
+import com.revature.models.Customer;
 import com.revature.models.Register;
-import com.revature.models.RegisterCustomer;
+import com.revature.models.Customer;
 import com.revature.services.CustomerService;
-
-import jdk.internal.org.jline.utils.Log;
 
 public class RegisterMenuController {
 //	public Customers customer1=new Customers();
 	public StartMenuController start;
 	public Scanner scan = new Scanner(System.in);
 
-	public RegisterCustomer registrationMenu() {
-		RegisterCustomer customer1 = new RegisterCustomer();
+	public Customer registrationMenu() {
+		Customer customer1 = new Customer();
 
 		System.err.println("\n****Registration Form****");
 

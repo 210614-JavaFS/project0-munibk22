@@ -1,13 +1,9 @@
-package com.revature.controllers;
+package com.revature.models;
 
 import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.revature.models.Account;
-import com.revature.models.Character;
-import com.revature.models.RegisterCustomer;
 
 public class BankCustomer extends Character {
 	private static Scanner scan = new Scanner(System.in);

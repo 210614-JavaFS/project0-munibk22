@@ -24,7 +24,6 @@ public abstract class Character {
 	private boolean isActive = false;
 	private boolean isRegistered = false;
 
-//	Account account this.isRegistered = setConfirm(confirmAns);
 
 	public Character(String firstName, String lastName, String password) {
 		this.firstName = firstName;
