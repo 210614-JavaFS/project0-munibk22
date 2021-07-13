@@ -14,14 +14,14 @@ public class BankCustomer extends Character {
 	private String sSecurity;
 	private boolean reg = true;
 
-	public BankCustomer(String firstName, String lastName, String password, int checkingBalance, String sSecurity) {
-		super(firstName, lastName, password);
-		this.checkingBalance = checkingBalance;
-//		this.account = account;
-		this.sSecurity = sSecurity;
-//		this.setRegistered(setConfirm(confirmAns));
-//		this.reg=setReg(setRegistered);
-	}
+//	public BankCustomer(String firstName, String lastName, String password, int checkingBalance, String sSecurity) {
+//		super(firstName, lastName, password);
+//		this.checkingBalance = checkingBalance;
+////		this.account = account;
+//		this.sSecurity = sSecurity;
+////		this.setRegistered(setConfirm(confirmAns));
+////		this.reg=setReg(setRegistered);
+//	}
 
 //	public BankCustomer() {
 //		super();

@@ -6,9 +6,10 @@ public class Account {
 	private int checkingBalance;
 	private int savingBalance;
 
+	// Contructor
 	public Account(int checkingBalance, int savingBalance) {
 		super();
-		this.accountNo = Integer.toString(saccNo++);
+		this.accountNo = Integer.toString((int) (Math.random() * saccNo++));
 		System.out.println("Accout " + this.accountNo + " was approved!");
 
 	}
@@ -40,6 +41,7 @@ public class Account {
 	}
 
 	public void setCheckingBalance(int checkingBalance) {
+
 		if (checkingBalance >= 100) {
 			this.checkingBalance = checkingBalance;
 		} else {
@@ -58,7 +60,8 @@ public class Account {
 	// toString
 	@Override
 	public String toString() {
-		return "Account [accountNo=" + accountNo + "]";
+		return "Account [accountNo= " + accountNo + ", checkingBalance= " + checkingBalance + ", savingBalance= "
+				+ savingBalance + "]";
 	}
 
 	@Override

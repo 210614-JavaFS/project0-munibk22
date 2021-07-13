@@ -20,40 +20,45 @@ public class BankMenuController {
 			System.out.println("***** Welcome " + customer.getFirstName() + " to Revature2Vanquish Bank***** \n");
 
 			System.out.println("What would you like to do today?");
-			System.out.println("1." + "\n2.Apply for a new account" + "\n3.Login"
-					+ "\n4.Exit the Bank" + "\n5.Exit the Game");
+			System.out.println("1.Apply for a new account" + "\n2.Login" + "\n3.Exit the Bank" + "\n4.Exit the Game");
 
 			String answer = scan.nextLine();
 
 			switch (answer) {
-			case "1":
+//			case "1":
 //				if (!customerBank.isRegistered()) {
-				System.out.println("Excellent, " + customer.getFirstName()
-						+ " let's submit your application for approval. Most accounts are approved within 24 hours. ");
+//				System.out.println("Excellent, " + customer.getFirstName()
+//						+ " let's submit your application for approval. Most accounts are approved within 24 hours. ");
 //				customer = appController.getAppMenu(customer);
 //				registerMenu.registrationMenu();
-				break;
+//				break;
 //				} else {
 //					System.out.println("\nYou can: \n" + "1.Submit Application");
 ////					System.out.println(customerReg.getBalance());
 //					break;
 //				}
 
-			case "2":
+			case "1":
 				System.out.println(
 						"Excellent, " + customer.getFirstName() + " let's get started with your new account. \n");
 				customer = appController.getAppMenu(customer);
 				break;
-			case "3":
-				System.out.println("Great, let's login to your account.");
-				login(customer);
+			case "2":
+				if (customer.getIsActive() == false) {
+					System.err.println(
+							"User must be approved for an account before loggin in, please select option 1 in main menu \n");
+
+				} else {
+					System.out.println("Great, let's login to your account.");
+					login(customer);
+				}
 
 				break;
-			case "4":
+			case "3":
 				System.out.println("Thank you for visiting!");
 				customer.setReg(false);
 				break;
-			case "5":
+			case "4":
 				System.out.println("Thank you for visiting!");
 				System.exit(0);
 				break;
@@ -78,7 +83,7 @@ public class BankMenuController {
 		}
 	}
 
-	private void login(Customer customer) {
+	public void login(Customer customer) {
 
 		customer.setLoggedIn();
 		boolean menuController = true;
@@ -89,7 +94,7 @@ public class BankMenuController {
 //			CustomerUtil.customerUtil(customer);
 			if (customer.getLoggedIn()) {
 				System.out
-						.println(customer.getFirstName() + customer.getLastName() + " was logged out successfully! \n");
+						.println(customer.getFirstName() + customer.getLastName() + " was logged in successfully! \n");
 				customer = customerController.getTransactionsMenu(customer);
 			}
 			menuController = false;

@@ -13,6 +13,7 @@ import com.revature.models.Customer;
 import com.revature.models.Employee;
 import com.revature.services.AccountService;
 import com.revature.services.CustomerService;
+import com.revature.services.EmployeeService;
 
 public class EmployeeController {
 	private static Scanner scan = new Scanner(System.in);
@@ -24,12 +25,29 @@ public class EmployeeController {
 	private static CustomerController customerController = new CustomerController();
 	private static CustomerDAO customerDAO = new CustomerDAOImp();
 	private static AccountService accountService = new AccountService();
+	private static EmployeeService employeeService = new EmployeeService();
 
-	public Employee employeeLogin() {
+	public Employee employeeLogin(Employee employee) {
+
+		System.out.println("Enter username");
+		String userNameScan = scan.nextLine();
+		System.out.println("Enter password");
+		String passwordScan = scan.nextLine();
+
+		employee = employeeService.getEUserName(userNameScan);
+		System.out.println(employee);
+		scan.nextLine();
+		employee.setLoggedIn();
+//		employeeMenu(employee);
+		return employee;
+	}
+
+	public Employee employeeMenu(Employee employee) {
+
 		String ans;
 		boolean menuController = true;
 
-//		System.err.println("Good news, " + employee.getFirstName() + " loggin was successfull!");
+		System.err.println("Good news, " + employee.getFirstName() + " loggin was successfull!\n");
 
 		do {
 			System.out.println("What would you like to do today?");
@@ -40,9 +58,9 @@ public class EmployeeController {
 			System.out.println("5.See all customers");
 			System.out.println("6.See one customer");
 			System.out.println("7.Add a customer");
-			System.out.println("8.View accouts pending approval");
+			System.out.println("8.View accounts pending approval");
 			System.out.println("9.Account information");
-			System.out.println("10.Account balances");
+			System.out.println("10.View account balances");
 			System.out.println("11.Personal information");
 			System.out.println("12.See all accounts");
 			System.out.println("13.Exit menu");
@@ -89,19 +107,19 @@ public class EmployeeController {
 				addCustomer();
 				break;
 			case "8":
-
+				showStatus();
 				break;
 			case "9":
-				showAllCustomers();
+
 				break;
 			case "10":
-
+				showAllAccounts();
 				break;
 			case "11":
 
 				break;
 			case "12":
-				showAllAccounts();
+//				showAllAccounts();
 				break;
 			case "13":
 				menuController = false;
@@ -117,6 +135,24 @@ public class EmployeeController {
 		} while (menuController);
 
 		return null;
+
+	}
+
+	private void showStatus() {
+		List<Customer> customers = employeeService.getStatus();
+		System.err.println("\nHere are the customer accounts pending approval:");
+		System.out.println("==========");
+		for (Customer c : customers) {
+			System.out.println(c);
+		}
+		System.out.println("========== \n");
+
+		System.out.println("Do you want to approve any accounts?");
+		String response = scan.nextLine();
+		if (response.equals("yes")) {
+
+			approveAccounts();
+		}
 
 	}
 
@@ -150,26 +186,39 @@ public class EmployeeController {
 //		}
 //	}
 
-//	public void showAllCustomers() {
-//		showAllCustomers();
-//	}
+	private void approveAccounts() {
+		boolean customers = employeeService.updateActive();
+		System.err.println("\nEnter customer user name");
+		String response = scan.nextLine();
+		System.out.println("==========");
+//		for (Customer c : customers) {
+//			System.out.println(c);
+//		}
+		System.out.println("========== \n");
+
+	}
+
 	public void addCustomer() {
 		StartMenuController menuController = new StartMenuController();
 		menuController.newCustomerBuilder();
 	}
 
 	public void showAllAccounts() {
-		System.out.println("Here the recorded accounts:");
-		List<Account> accounts = accountService.findAllAccounts();
+		List<Account> accounts = employeeService.getAllAccounts();
+		System.err.println("\nHere are the recorded accounts:");
+		System.out.println("==========");
+
 		for (Account a : accounts) {
 			System.out.println(a);
 		}
+		System.out.println("==========\n");
 	}
 
 	public void showAllCustomers() {
-		List<Customer> customers = getAllCustomers();
+		List<Customer> customers = employeeService.getAllCustomers();
+		System.err.println("\nHere are the recorded customers:");
 		System.out.println("==========");
-		for (Customer c : customers) {			
+		for (Customer c : customers) {
 			System.out.println(c);
 		}
 		System.out.println("========== \n");
@@ -180,10 +229,10 @@ public class EmployeeController {
 	}
 
 	public void showOneCustomer() {
-		System.out.println("Enter id of the customer you would like to see?");
-		int response = scan.nextInt();
-		scan.nextLine();
-		Customer customer = customerService.getCustomer(response);
+		System.out.println("Enter first name of the customer you would like to see?");
+		String response = scan.nextLine();
+
+		Customer customer = employeeService.getName(response);
 
 		if (customer != null) {
 			System.out.println(customer);

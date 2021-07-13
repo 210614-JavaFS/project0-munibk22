@@ -57,8 +57,8 @@ public class ApplicationsController {
 		System.err.println("\nPlease confirm your details:");
 		System.out.println("Name: " + customer.getFirstName() + " " + customer.getLastName() + ",\n" + "Username: "
 				+ customer.getUserName() + ",\n" + "Address: " + customer.getAddress() + ",\n" + "Password: "
-				+ customer.getPassWord() + ",\n " + " Starting Balance: " + ",\n " + customer.getCheckingBalance()
-				+ ",\n" + " is registered? " + customer.getRegistered() + " is active? " + customer.getIsActive()
+				+ customer.getPassWord() + ",\n " + "Starting Balance: " + customer.getCheckingBalance() + ",\n"
+				+ " is registered? " + customer.getRegistered() + " is active? " + ",\n " + customer.getIsActive()
 				+ ",\n");
 		System.out.println("\nDoes everything look correct?");
 		String confirmAns = scan.nextLine();
@@ -71,7 +71,8 @@ public class ApplicationsController {
 					customer.getAddress(), customer.getsSecurity(), customer.getRegistered(), customer.getIsActive());
 //			customerService.addCustomer(customer);
 			if (customerService.addCustomer(customer)) {
-				System.out.println("New customer " + customer.getFirstName() + " was added.");
+				System.out.println("====New customer " + customer.getFirstName() + " was added.====\n");
+				System.err.println("Excellent, most accounts are reviewed with 24 hours, please check bank then \n");
 				return customer;
 			} else {
 				System.out.println("Problem adding customer, please try again");

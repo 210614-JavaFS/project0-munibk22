@@ -29,6 +29,7 @@ public abstract class Character {
 //	private static int saccNo = 1000;
 	private Date dateCreated;
 	private int checkingBalance;
+	private String UserName;
 
 	public Character(String firstName, String lastName, String password, int checkingBalance, boolean isRegistered,
 			boolean isActive) {
@@ -52,17 +53,30 @@ public abstract class Character {
 	// Setters
 
 	public void setLoggedIn() {
+		this.isLoggedIn = true;
+//		while (this.isLoggedIn == false) {
+//			System.out.println("Enter your name");
+//			String name = scan.nextLine();
+//			if (this.firstName.equals(name)) {
+//				this.isLoggedIn = true;
+//			} else {
+//				System.out.println("incorrect user name fool.");
+//			}
 
-		while (this.isLoggedIn == false) {
-			System.out.println("Enter your name");
-			String name = scan.nextLine();
-			if (this.firstName.equals(name)) {
-				this.isLoggedIn = true;
-			} else {
-				System.out.println("incorrect user name fool.");
-			}
+//		}
+	}
+	
 
-		}
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public String getUserName() {
+		return UserName;
+	}
+
+	public void setUserName(String userName) {
+		UserName = userName;
 	}
 
 	public void setLoggOff() {
@@ -248,9 +262,9 @@ public abstract class Character {
 	/**
 	 * @return the dateCreated
 	 */
-	public String getDateCreated() {
-		return dateCreated;
-	}
+//	public String getDateCreated() {
+//		return dateCreated;
+//	}
 
 	/**
 	 * @param date the dateCreated to set

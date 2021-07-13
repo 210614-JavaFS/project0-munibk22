@@ -52,8 +52,8 @@ public class CustomerRDAO {
 			while (scan.hasNextLine()) {
 				String customerString = scan.nextLine();
 				String[] customerDeets = customerString.split(",");
-				allCustomers.add(new Customer(customerDeets[0], customerDeets[1], customerDeets[2], customerDeets[3],
-						customerDeets[4]));
+//				allCustomers.add(new Customer(customerDeets[0], customerDeets[1], customerDeets[2], customerDeets[3],
+//						customerDeets[4]));
 			}
 		} catch (Exception e) {
 			log.error("Something went wrong retrieving customers:" + e.getMessage());

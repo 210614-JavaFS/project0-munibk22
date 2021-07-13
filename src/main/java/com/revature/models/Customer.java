@@ -13,7 +13,7 @@ public class Customer extends Character {
 
 	private String userName;
 	private String address;
-	private boolean isLoggedIn = false;
+//	public boolean isLoggedIn = false;
 	private String confirmAns;
 	private Account account;
 	private String sSecurity;
@@ -101,9 +101,9 @@ public class Customer extends Character {
 	// toString
 	@Override
 	public String toString() {
-		return "RegisteredCustomer [userName=" + userName + ", address=" + address + ", isRegistered=" + getRegistered()
-				+ ", getLastName()=" + getLastName() + ", getFirstName()=" + getFirstName() + ", getLoggedIn()="
-				+ getLoggedIn() + ", getPassWord()=" + getPassWord() + "]";
+		return "RegisteredCustomer [userName=" + userName + ", isRegistered=" + getRegistered() + ", LastName ="
+				+ getLastName() + ", FirstName=" + getFirstName() + ", IsActive=" + getIsActive() + ", PassWord="
+				+ getPassWord() + "]";
 	}
 
 	// HasCode & Equals
@@ -141,13 +141,13 @@ public class Customer extends Character {
 		return true;
 	}
 
-	public boolean isLoggedIn() {
-		return isLoggedIn;
-	}
-
-	public void setLoggedIn(boolean isLoggedIn) {
-		this.isLoggedIn = isLoggedIn;
-	}
+//	public boolean isLoggedIn() {
+//		return isLoggedIn;
+//	}
+//
+//	public void setLoggedIn(boolean isLoggedIn) {
+//		this.isLoggedIn = isLoggedIn;
+//	}
 
 	/**
 	 * @return the confirmAns

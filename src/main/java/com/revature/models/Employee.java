@@ -1,18 +1,15 @@
 package com.revature.models;
 
-import java.util.ArrayList;
-
 public class Employee extends Character {
 
 	private String department;
 	private int id;
 
 //Constructor
-	public Employee(String firstName, String lastName, String password, String department, int id, boolean isRegistered,
+	public Employee(String firstName, String lastName, String password, int checkingBalance, boolean isRegistered,
 			boolean isActive) {
-		super(firstName, lastName, password, id, isRegistered, isActive);
-		this.department = department;
-		this.id = id;
+		super(firstName, lastName, password, checkingBalance, isRegistered, isActive);
+
 	}
 
 	// No Args Constructor
