@@ -6,9 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//import com.revature.daos.CustomerBDAO;
-import com.revature.daos.CustomerRDAO;
-import com.revature.models.BankCustomer;
 import com.revature.models.Employee;
 import com.revature.models.Customer;
 import com.revature.services.CustomerService;
@@ -22,86 +19,70 @@ public class StartMenuController {
 	private static String setPassword;
 	private static String setPassConfirm;
 	private static boolean pwMatch = false;
-	private static CustomerRDAO customerRDAO = new CustomerRDAO();
 	private static CustomerService customerService = new CustomerService();
-	
 
 	public Customer getCustomer() {
-		BankMenuController menu = new BankMenuController();
-
 //		do {
-		System.err.println("Are you a current employee or customer? yes/no");
-		ans = scan.nextLine();
-		try {
 
-			if (ans.toLowerCase().equals("yes") || ans.toLowerCase().equals("ye")) {
-				ArrayList<Customer> activeCustomers = customerService.getPreviousCustomerR();
-				System.out.println("View all customers:");
-				int counter = 1;
-				for (Customer saveCustomerReg : activeCustomers) {
-					System.out.println(counter + ") " + saveCustomerReg);
-					++counter;
+//				String choice = scan.nextLine();
+//				try {
+//					int intChoice = Integer.valueOf(choice);
+//					Customer customerR = activeCustomers.get(intChoice - 1);
+//					System.out.println("Welcome back " + customerR.getFirstName() + " " + customerR.getLastName());
+//					return customerR;
+//				} catch (NumberFormatException e) {
+//					log.warn("User tried to select customer that does not currently exists " + e.getMessage());
+//					System.out.println("Not valid input, please try again.");
+//					return getCustomer();
+//				}
 
-				}
-				
-
-				String choice = scan.nextLine();
-				try {
-					int intChoice = Integer.valueOf(choice);
-					Customer customerR = activeCustomers.get(intChoice - 1);
-					System.out.println("Welcome back " + customerR.getFirstName() + " " + customerR.getLastName());
-					return customerR;
-				} catch (NumberFormatException e) {
-					log.warn("User tried to select customer that does not currently exists " + e.getMessage());
-					System.out.println("Not valid input, please try again.");
-					return getCustomer();
-				}
-
-//				System.out.println("Are you a current:" + "\n1.Customer" + "\n2.Employee");
-//				String response = scan.nextLine();
-//				BankCustomer customerBank;
-//				String result = response == "1" ? "Welcome to customer login" : "Welcome to employee login";
-//				System.out.println(result);
-			} else if (ans.toLowerCase().equals("no")) {
-				System.out.println("Great, let's get started with Registration. ");
-				Customer customerReg = newCustomerBuilder();
-				return customerReg;
-			}
-//			else {
-//				System.out.println("That is not a valid option, please choose again. \n");
-//				return getCustomer();
-//			}
-		} catch (IllegalArgumentException e) {
-			log.warn("User entered invalid  choice.");
-			e.printStackTrace();
-			System.out.println("Not a valid choice, please try again.");
-//				return getCustomer();
+		System.out.println("Are you a current Customer?");
+		String response = scan.nextLine();
+		if (response.equals("yes")) {
+			System.out.println("Welcome to customer login");
+		} else if (response.toLowerCase().equals("no")) {
+			System.out.println("\nGreat, let's get started with Registration. ");
+			Customer customerReg = newCustomerBuilder();
+			return customerReg;
+		} else {
+			System.out.println("That is not a valid option, please choose again. \n");
+			return getCustomer();
 		}
+		return null;
+	}
+//catch(IllegalArgumentException e)
+//	{
+//			log.warn("User entered invalid  choice.");
+//			e.printStackTrace();
+//			System.out.println("Not a valid choice, please try again.");
+////				return getCustomer();
+//		}
 //		} while (!(ans == "yes") || !(ans == "no") || !(ans == "Yes") || !(ans == "No"));
 
-		return getCustomer();
+//	return null;
 
-	}
+//	}
 
-	private Customer newCustomerBuilder() {
+	public Customer newCustomerBuilder() {
 
-		Customer customerReg = null;
+		Customer customer = new Customer();
 		System.err.println("\n****Registration Form****");
 
 		System.out.println("What is your first name?");
 		String setFirstName = scan.nextLine();
-//		customer.setFirstName(setFirstName);
+		customer.setFirstName(setFirstName);
 		System.out.println("What is your last name?");
 		String setLastName = scan.nextLine();
-//		customer.setLastName(setLastName);
+		customer.setLastName(setLastName);
 		System.out.println("Please select a user name:");
 		String userName = scan.nextLine();
+		customer.setUserName(userName);
 		System.out.println("What is your address?");
 		String setAddress = scan.nextLine();
-//		customer.setAddress(setAddress);
+		customer.setAddress(setAddress);
 		System.out.println("What is your password?");
 		setPassword = scan.nextLine();
-//		customer.setPassword(setPassword);
+		customer.setPassword(setPassword);
 		do {
 			System.out.println("Please confirm your password");
 			setPassConfirm = scan.nextLine();
@@ -115,21 +96,19 @@ public class StartMenuController {
 		String confirmAns = scan.nextLine();
 //		customer.setConfirm(confirmAns);saveCustomerReg
 		if (confirmAns.toLowerCase().equals("yes") || confirmAns.equals("1") || confirmAns.equals("ye")) {
-
-			customerReg = customerService.createRegCustomer(setFirstName, setLastName, setAddress, setPassword,
-					userName);
-			customerReg.setConfirmAns(confirmAns);
+			customer.setConfirmAns(confirmAns);
+			customer.setRegistered(true);
 		} else {
 			System.out.println("Alright, lets start over.");
-			customerReg = newCustomerBuilder();
+			customer = newCustomerBuilder();
 		}
 
-		if (customerReg.getRegistered()) {
-			saveCustomerReg(customerReg);
-			log.info("Customer " + customerReg.getFirstName() + " " + customerReg.getLastName() + " is registered. \n");
+		if (customer.getRegistered()) {
+
+			log.info("Customer " + customer.getFirstName() + " " + customer.getLastName() + " is registered. \n");
 		}
 //		saveCustomerReg(customerReg);
-		return customerReg;
+		return customer;
 	}
 
 	private boolean passMatch(String pw, String confirmPW, String setFirstName) {
@@ -143,9 +122,8 @@ public class StartMenuController {
 
 	}
 
-	public void saveCustomerReg(Customer customerReg) {
-		CustomerService.save(customerReg);
-//		return customerReg;
-
-	}
+//	public void saveCustomerReg(Customer customerReg) {
+//		CustomerService.save(customerReg);
+//
+//	}
 }

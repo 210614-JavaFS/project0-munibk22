@@ -8,8 +8,9 @@ public class Employee extends Character {
 	private int id;
 
 //Constructor
-	public Employee(String firstName, String lastName, String password, String department, int id) {
-		super(firstName, lastName, password);
+	public Employee(String firstName, String lastName, String password, String department, int id, boolean isRegistered,
+			boolean isActive) {
+		super(firstName, lastName, password, id, isRegistered, isActive);
 		this.department = department;
 		this.id = id;
 	}

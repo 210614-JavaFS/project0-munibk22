@@ -1,47 +1,59 @@
 package com.revature.services;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+//import java.util.Scanner;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.revature.daos.CustomerRDAO;
-import com.revature.models.BankCustomer;
+import com.revature.daos.CustomerDAO;
+import com.revature.daos.CustomerDAOImp;
 import com.revature.models.Customer;
 
 public class CustomerService {
 //	Customers customer;
 	private static Logger log = LoggerFactory.getLogger(CustomerService.class);
-	private static CustomerRDAO customerRDAO = new CustomerRDAO();
+	private static CustomerDAO customerDAO = new CustomerDAOImp();
 
-	public Customer createRegCustomer(String firstName, String setLastName, String setAddress, String setPassword,
-			String userName) {
+	public Customer createRegCustomer(String firstName, String lastName, String userName, String password, int balance, String address, String sSecurity, boolean isRegistered, boolean isActive) {
 
-		return new Customer(firstName, setLastName, setPassword, setAddress, userName);
+		return new Customer(firstName, lastName, userName, password, balance, address, sSecurity, isRegistered,
+				isActive);
 	}
 
-//	public CustomerService(Customers customer2) {
-//		// TODO Auto-generated constructor stub
-//	}
+	public List<Customer> getAllCustomers() {
+		return customerDAO.findAll();
+	}
 
-//	public static RegisteredCustomer createNewCustomer(String firstName, String lastName, String address, String password,
-//			String confirmAns) {
-//		return new Customers(firstName, lastName, address, password, confirmAns);
-//	}
+	public Customer getCustomer(int id) {
+		return customerDAO.findById(id);
+	}
 
-	public void setDeposit(BankCustomer customerBank, String deposit) {
+	public boolean addCustomer(Customer customer) {
+		 customerDAO.addCustomer(customer);
+		 return true;
+	}
+
+	public void removeCustomer(String response) {
+		customerDAO.deleteCustomer(response);
+	}
+
+	public void removeCustomerint(int id) {
+		customerDAO.deleteCustomerid(id);
+	}
+
+	public void setDeposit(Customer customer, String deposit) {
 //		customer.getBalance();
-		System.out.println("Previous balance " + customerBank.getCheckingBalance());
+		System.out.println("Previous balance " + customer.getCheckingBalance());
 		int parseDeposit = Integer.parseInt(deposit);
 		if (parseDeposit != 0) {
-			customerBank.setCheckingBalance(customerBank.getCheckingBalance() + parseDeposit);
+			customer.setCheckingBalance(customer.getCheckingBalance() + parseDeposit);
 
 			System.out.println("-----------------------------------");
-			log.info("New balance " + customerBank.getCheckingBalance() + "\n");
+			log.info("New balance " + customer.getCheckingBalance() + "\n");
 			System.out.println("-----------------------------------");
 		} else {
 			System.out.println("Must deposit an amount greater than $0");
@@ -58,20 +70,20 @@ public class CustomerService {
 
 	}
 
-	public static void save(Customer customerReg) {
-		customerRDAO.writeCustomer(customerReg);
+//	public static void save(Customer customerReg) {
+//		customerRDAO.writeCustomer(customerReg);
+//
+//	}
 
-	}
-
-	public ArrayList<Customer> getPreviousCustomerR() {
-
-		ArrayList<Customer> allCustomers = customerRDAO.getAllCustomers();
-		for (int i = 0; i < allCustomers.size(); ++i) {
+//	public ArrayList<Customer> getPreviousCustomerR() {
+//
+//		ArrayList<Customer> allCustomers = customerRDAO.getAllCustomers();
+//		for (int i = 0; i < allCustomers.size(); ++i) {
 //			if (allCustomers.get(i).getIsActive() == false) {
 //				allCustomers.remove(i);
 //			}
-		}
-		return allCustomers;
-	}
+//		}
+//		return allCustomers;
+//	}
 
 }

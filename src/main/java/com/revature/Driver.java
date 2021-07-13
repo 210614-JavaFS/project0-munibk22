@@ -3,15 +3,21 @@ package com.revature;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.revature.controllers.AccountController;
+
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import com.revature.controllers.BankMenuController;
+import com.revature.controllers.CustomerController;
+import com.revature.controllers.EmployeeController;
 import com.revature.controllers.StartMenuController;
 import com.revature.models.BankCustomer;
 import com.revature.models.Customer;
 import com.revature.models.Employee;
+import com.revature.services.CustomerService;
 import com.revature.services.EmployeeService;
+import com.revature.utils.ConnectionUtil;
 
 public class Driver {
 
@@ -19,51 +25,77 @@ public class Driver {
 	private static Scanner scan = new Scanner(System.in);
 	private static BankMenuController bankMenu = new BankMenuController();
 	private static StartMenuController startMenuController = new StartMenuController();
+	private static EmployeeService employeeService = new EmployeeService();
+	private static CustomerService customerService = new CustomerService();
+	private static CustomerController customerController = new CustomerController();
+	private static EmployeeController empController = new EmployeeController();
+	private static AccountController accountController = new AccountController();
 
 	public static void main(String[] args) {
-		System.out.println("*****Hello, Welcome to Revature2Vanquish Bank***** \n");
-		EmployeeService employeeService=new EmployeeService();
-		ArrayList<Employee> getEmployees = employeeService.getEmployees();
-		int counter = 1;
-		for(Employee employee:getEmployees) {
-			System.out.println(counter + ") " + getEmployees);
-			++counter;
-		}
-		Customer customerReg = startMenuController.getCustomer();
+
+//		customerController.addCustomer();
+//		customerService.getAllCustomers();
+
+		
+		// Initial start Menu		
+		initialPrompt();
+		
+
+		Customer customer = startMenuController.getCustomer();
+		
+		initMenu(customer);
+
 //		customerReg=startMenuController.saveCustomerReg(customerReg);
-		// Initial start Menu
-		initMenu(customerReg);
+
+	}
+	
+
+	private static void initialPrompt() {
+		String ans = null;
+		do {
+			System.out.println("\n*****Hello, Welcome to Revature2Vanquish Bank***** \n");
+			System.err.println("Are you a current employee? yes/no");
+			ans = scan.nextLine();
+			if (ans.toLowerCase().equals("yes") || ans.toLowerCase().equals("ye")) {
+				queryEmployee();
+			}
+		} while (!ans.equals("no"));
+		
+	}
+
+
+	public static void queryEmployee() {
+		empController.employeeLogin();
 	}
 
 	public static void initMenu(Customer customerReg) {
 		while (customerReg.getRegistered()) {
-			BankCustomer customerBank = new BankCustomer(customerReg.getFirstName(), customerReg.getLastName(),
-					customerReg.getPassWord(), 200, "4241");
+//			BankCustomer customerBank = new BankCustomer(customerReg.getFirstName(), customerReg.getLastName(),
+//					customerReg.getPassWord(), 200, "4241");
 			System.out.println(
-					"Customer " + customerBank.getFName() + " " + customerBank.getLastName() + " is registered. \n");
-			bankMenu.bankMenu(customerBank);
+					"Customer " + customerReg.getFirstName() + " " + customerReg.getLastName() + " is registered. \n");
+			bankMenu.bankMenu(customerReg);
 			System.out.println("Do you want to leave the Bank?");
 			String response = scan.nextLine();
 
 			switch (response) {
 			case "yes":
 				// Save customer
-
-				System.out.println("Saved customer Registration record");
 				customerReg.setRegistered(false);
+				
 				break;
 			case "no":
-				customerBank.setReg(true);
+				customerReg.setReg(true);
 				break;
 			default:
 				System.out.println("Not valid choice.");
 				break;
 			}
-			customerReg = startMenuController.getCustomer();
-			customerBank.setReg(true);
-			customerBank = new BankCustomer(customerReg.getFirstName(), customerReg.getLastName(),
-					customerReg.getPassWord(), 200, "4241");
-			bankMenu.bankMenu(customerBank);
+			initialPrompt();
+			customerReg.setReg(true);
+//			customerReg = new Customer(customerReg.getFirstName(), customerReg.getLastName(),
+//					customerReg.getPassWord(), 200, "4241");
+			bankMenu.bankMenu(customerReg);
 		}
 	}
 
@@ -75,4 +107,3 @@ public class Driver {
 //new
 //log.error("Log something is going wrong");
 //log.warn("The program is aboot to end");
-//initMenu.startMenu();

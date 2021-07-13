@@ -1,9 +1,11 @@
 package com.revature.models;
 
+import java.util.Date;
+
 //import java.util.Scanner;
 
 //import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.LoggerFactory;
 
 public class Customer extends Character {
 //	private static Scanner scan = new Scanner(System.in);
@@ -13,14 +15,21 @@ public class Customer extends Character {
 	private String address;
 	private boolean isLoggedIn = false;
 	private String confirmAns;
+	private Account account;
+	private String sSecurity;
+	private boolean reg = true;
+
+	private int id;
 
 	// Constructor with fields
-	public Customer(String firstName, String lastName, String password, String address, String userName) {
-		super(firstName, lastName, password);
+	public Customer(String firstName, String lastName, String userName, String password, int checkingBalance,
+			String address, String sSecurity, boolean isRegistered, boolean isActive) {
+		super(firstName, lastName, sSecurity, checkingBalance, isRegistered, isActive);
 		this.address = address;
 //		setRegistered(setConfirm(confirmAns));
 		this.userName = userName;
 		setConfirm(confirmAns);
+		this.sSecurity = sSecurity;
 
 	}
 
@@ -30,6 +39,23 @@ public class Customer extends Character {
 	}
 
 	// Getters
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public String getsSecurity() {
+		return sSecurity;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public void setsSecurity(String sSecurity) {
+		this.sSecurity = sSecurity;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -48,6 +74,10 @@ public class Customer extends Character {
 //	public void setRegistered(boolean setRegistered) {
 //		this.isRegistered = setRegistered;
 //	}
+
+	public void setReg(boolean setRegistered) {
+		this.reg = setRegistered;
+	}
 
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -131,6 +161,25 @@ public class Customer extends Character {
 	 */
 	public void setConfirmAns(String confirmAns) {
 		this.confirmAns = confirmAns;
+	}
+
+	public boolean getReg() {
+		// TODO Auto-generated method stub
+		return this.reg;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return this.id;
+	}
+
+	/**
+	 * @param i the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

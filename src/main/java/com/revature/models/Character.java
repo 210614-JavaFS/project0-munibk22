@@ -1,5 +1,6 @@
 package com.revature.models;
 
+import java.sql.Date;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
@@ -23,13 +24,21 @@ public abstract class Character {
 	private boolean isLoggedIn = false;
 	private boolean isActive = false;
 	private boolean isRegistered = false;
+	private String timeStamp;
+	Account account;
+//	private static int saccNo = 1000;
+	private Date dateCreated;
+	private int checkingBalance;
 
-
-	public Character(String firstName, String lastName, String password) {
+	public Character(String firstName, String lastName, String password, int checkingBalance, boolean isRegistered,
+			boolean isActive) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
-//		this.setRegistered(setConfirm(confirmAns));
+		this.isRegistered = isRegistered;
+		this.isActive = isActive;
+		this.checkingBalance = checkingBalance;
+		// this.setRegistered(setConfirm(confirmAns));
 	}
 
 	public Character() {
@@ -69,7 +78,6 @@ public abstract class Character {
 	}
 
 	public void setPassword(String setPassword) {
-//String pw = setPassword.length()> 2 ? this.password=setPassword :System.out.println("Password must be more than 2 characters long")
 
 		while (this.password == null) {
 			if (setPassword.length() <= 2) {
@@ -193,14 +201,14 @@ public abstract class Character {
 	 * @return the isActive
 	 */
 	public boolean getIsActive() {
-		return isActive;
+		return isActive();
 	}
 
 	/**
 	 * @param isActive the isActive to set
 	 */
 	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
+		this.setActive(isActive);
 	}
 
 	/**
@@ -221,6 +229,62 @@ public abstract class Character {
 	public void setConfirm(String setConfirm) {
 		this.setRegistered(true);
 
+	}
+
+	/**
+	 * @return the timeStamp
+	 */
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	/**
+	 * @param timeStamp the timeStamp to set
+	 */
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	/**
+	 * @return the dateCreated
+	 */
+	public String getDateCreated() {
+		return dateCreated;
+	}
+
+	/**
+	 * @param date the dateCreated to set
+	 */
+	public void setDateCreated(Date date) {
+		this.dateCreated = date;
+	}
+
+	/**
+	 * @return the checkingBalance
+	 */
+	public int getCheckingBalance() {
+		return checkingBalance;
+	}
+
+	/**
+	 * @param checkingBalance the checkingBalance to set
+	 */
+	public void setCheckingBalance(int checkingBalance) {
+		this.checkingBalance = checkingBalance;
+	}
+
+	/**
+	 * @return the isActive
+	 */
+	public boolean isActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 //	public String setPassConfirm(String setPassConfirm) {
