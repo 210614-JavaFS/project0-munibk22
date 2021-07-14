@@ -1,16 +1,11 @@
 package com.revature;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.revature.controllers.AccountController;
-
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-
 import com.revature.controllers.BankMenuController;
 import com.revature.controllers.CustomerController;
 import com.revature.controllers.EmployeeController;
@@ -42,8 +37,6 @@ public class Driver {
 		Customer customer = startMenuController.getCustomer();
 
 		initMenu(customer);
-
-//		customerReg=startMenuController.saveCustomerReg(customerReg);
 
 	}
 
@@ -100,11 +93,7 @@ public class Driver {
 				System.out.println("Not valid choice.");
 				break;
 			}
-//			initialPrompt();
-//			customerReg.setReg(true);
-//			customerReg = new Customer(customerReg.getFirstName(), customerReg.getLastName(),
-//					customerReg.getPassWord(), 200, "4241");
-//			bankMenu.bankMenu(customerReg);
+
 		}
 		initialPrompt();
 	}
