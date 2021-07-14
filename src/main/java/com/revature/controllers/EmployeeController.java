@@ -12,21 +12,21 @@ import com.revature.models.Account;
 import com.revature.models.Customer;
 import com.revature.models.Employee;
 import com.revature.services.AccountService;
+import com.revature.services.AdminService;
 import com.revature.services.CustomerService;
 import com.revature.services.EmployeeService;
 
 public class EmployeeController {
 	private static Scanner scan = new Scanner(System.in);
 	private static Logger log = LoggerFactory.getLogger(EmployeeController.class);
-	private static CustomerService customerService = new CustomerService();
+//	private static CustomerService customerService = new CustomerService();
 	private static boolean pwMatch = false;
 	private static String setPassConfirm;
 	private static String setPassword;
-	private static CustomerController customerController = new CustomerController();
 	private static CustomerDAO customerDAO = new CustomerDAOImp();
-	private static AccountService accountService = new AccountService();
 	private static EmployeeService employeeService = new EmployeeService();
 	private static AdminController adminC = new AdminController();
+	private static AdminService adminService = new AdminService();
 
 	public Employee employeeLogin(Employee employee) {
 
@@ -65,66 +65,36 @@ public class EmployeeController {
 			System.out.println("2.See one customer");
 			System.out.println("3.View accounts pending approval");
 			System.out.println("4.Account information");
-			System.out.println("5.View account balances");
+			System.out.println("5.Delete Customer");
 			System.out.println("6.Personal information");
-			System.out.println("7.See all accounts");
+			System.out.println("7.Add a customer account");
 			System.out.println("8.Exit menu");
 
 			ans = scan.nextLine();
 			switch (ans) {
 			case "1":
-				System.err.println("Enter amount to deposit:");
-				String deposit = scan.nextLine();
-				if (Integer.parseInt(deposit) > 0) {
-
-				} else {
-//					log.info(customer.getFirstName() + " tried to deposit an amount below 0.");
-					System.err.println("Must deposit an amount over $0 \n");
-				}
-
-//			System.out.println("Customer has deposited " + deposit + "into " + customer.getBalance());
-				break;
-			case "2":
-				System.out.println("Enter amount you would like to withdraw:");
-//				String response = scan.nextLine();
-//				response = Integer.parseInt(response);
-//				if (Integer.parseInt(response) > customer.getCheckingBalance()) {
-//					log.warn(customer.getFirstName()
-//							+ " tried to withdraw an amount greater than avialable in account. ");
-//					System.err.println("You do not have enough funds to withdraw $" + response + "\n");
-//				} else {
-//					customerService.withdraw(response);
-
-				break;
-			case "3":
-
-				break;
-			case "4":
-				deleteCustomer();
-				break;
-			case "5":
 				showAllCustomers();
 				break;
-			case "6":
+			case "2":
 				this.showOneCustomer();
+				break;
+			case "3":
+				showStatus();
+				break;
+			case "4":
+				showAllAccounts();
+				break;
+			case "5":
+				deleteCustomer();
+				break;
+			case "6":
+
 				break;
 			case "7":
 				addCustomer();
 				break;
 			case "8":
-				showStatus();
-				break;
-			case "9":
-
-				break;
-			case "10":
-				showAllAccounts();
-				break;
-			case "11":
-
-				break;
-			case "12":
-//				showAllAccounts();
+				menuController = false;
 				break;
 			case "13":
 				menuController = false;
@@ -160,36 +130,6 @@ public class EmployeeController {
 		}
 
 	}
-
-//	public void addCustomer() {
-//		System.err.println("\n****Registration Form****");
-//
-//		System.out.println("What is your first name?");
-//		String setFirstName = scan.nextLine();
-////		customer.setFirstName(setFirstName);
-//		System.out.println("What is your last name?");
-//		String setLastName = scan.nextLine();
-////		customer.setLastName(setLastName);
-//		System.out.println("Please select a user name:");
-//		String userName = scan.nextLine();
-//		System.out.println("What is your address?");
-//		String setAddress = scan.nextLine();
-////		customer.setAddress(setAddress);
-//		System.out.println("What is your password?");
-//		setPassword = scan.nextLine();
-////		customer.setPassword(setPassword);
-//		do {
-//			System.out.println("Please confirm your password");
-//			setPassConfirm = scan.nextLine();
-//			passMatch(setPassword, setPassConfirm, setFirstName);
-//		} while (!pwMatch);
-//		Customer customer = new Customer(setFirstName, setLastName, userName, setAddress, setPassword);
-//		if (customerService.addCustomer(customer)) {
-//			System.out.println("New customer " + customer.getFirstName() + " was added.");
-//		} else {
-//			System.out.println("Problem adding customer, please try again");
-//		}
-//	}
 
 	private void approveAccounts() {
 
@@ -265,14 +205,10 @@ public class EmployeeController {
 		System.out.println("Enter id name of the customer you want to remove?");
 
 		int response = scan.nextInt();
-//		Customer customer = customerService.removeCustomerint(response);
-		customerService.removeCustomerint(response);
-//		if (customer != null) {
-//			System.out.println(customer);
-//		} else {
-//			System.out.println("That is not a valid customer name, try again.");
-//			showOneCustomer();
-//		}
+		scan.nextLine();
+		if (adminService.deleteAccount(response)) {
+			log.info("Deletion of accont with ID: " + response + " was a success.\n");
+		}
 	}
 
 }

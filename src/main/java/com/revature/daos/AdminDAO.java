@@ -22,7 +22,9 @@ public interface AdminDAO {
 
 	public boolean withdrawAccount(Customer customer, int newBalance);
 
-	public boolean withdrawTransfer(Customer customer, String firstName, int newBalance);
+	public boolean withdrawTransfer(String firstName, int withdraw);
 
 	public boolean updateCustomer(Customer customer);
+
+	public Customer updateActive(int id);
 }

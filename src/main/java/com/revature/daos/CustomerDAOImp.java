@@ -78,7 +78,7 @@ public class CustomerDAOImp implements CustomerDAO {
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			String sql = "UPDATE customers SET account_balance = account_balance + ? WHERE id =" + customer.getId();
+			String sql = "UPDATE customers SET account_balance = ? WHERE id =" + customer.getId();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 

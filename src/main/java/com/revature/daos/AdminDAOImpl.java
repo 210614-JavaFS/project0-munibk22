@@ -157,8 +157,20 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public boolean withdrawTransfer(Customer customer, String firstName, int newBalance) {
-		// TODO Auto-generated method stub
+	public boolean withdrawTransfer(String firstName, int withdraw) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			String sql = "UPDATE customers SET account_balance =  account_balance + ? WHERE first_name = " + "'"
+					+ firstName + "'";
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			statement.setInt(1, withdraw);
+			statement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
@@ -195,6 +207,28 @@ public class AdminDAOImpl implements AdminDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public Customer updateActive(int id) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "UPDATE customers SET active = true WHERE id = ?";
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+
+			statement.executeUpdate();
+			Customer customer = new Customer();
+
+			log.info("Customer's account at id " + id + " was approved. \n");
+
+			return customer;
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
 		return null;
 	}
 

@@ -75,6 +75,22 @@ public class AdminService {
 
 	public boolean deleteAccount(int customerID) {
 		return adminDao.deleteAccount(customerID);
+	}
+
+	public boolean withdrawTransfer(String firstName, String withdraw) {
+		int parseWithdraw = Integer.parseInt(withdraw);
+
+		return adminDao.withdrawTransfer(firstName, parseWithdraw);
+
+	}
+
+	public List<Customer> getStatus() {
+
+		return adminDao.findByStatus();
+	}
+
+	public void updateActive(int response) {
+		adminDao.updateActive(response);
 
 	}
 

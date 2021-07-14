@@ -42,7 +42,6 @@ public class AdminController {
 			switch (ans) {
 			case "1":
 				makeDeposit();
-//			System.out.println("Customer has deposited " + deposit + "into " + customer.getBalance());
 				break;
 			case "2":
 				makeWithDraw();
@@ -134,7 +133,32 @@ public class AdminController {
 	}
 
 	private void showStatus() {
-		// TODO Auto-generated method stub
+		List<Customer> customers = adminService.getStatus();
+		System.err.println("\nHere are the customer accounts pending approval:");
+		System.out.println("==========");
+		for (Customer c : customers) {
+			System.out.println(c);
+		}
+		System.out.println("========== \n");
+
+		System.out.println("Do you want to approve any accounts?");
+		String response = scan.nextLine();
+		if (response.equals("yes")) {
+
+			approveAccounts();
+		}
+
+	}
+
+	private void approveAccounts() {
+		System.err.println("\nEnter customer id");
+
+		int response = Integer.parseInt(scan.nextLine());
+//		scan.nextLine();
+
+		adminService.updateActive(response);
+
+		System.out.println("========== \n");
 
 	}
 
@@ -158,7 +182,17 @@ public class AdminController {
 	}
 
 	private void transfer() {
-		// TODO Auto-generated method stub
+		try {
+			System.out.println("Enter customer name who you are sending funds:");
+			String firstName = scan.nextLine();
+			System.out.println("Enter amount you would like to send:");
+			String withdraw = scan.nextLine();
+			;
+			adminService.withdrawTransfer(firstName, withdraw);
+
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		}
 
 	}
 
