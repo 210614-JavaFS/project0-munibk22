@@ -29,18 +29,6 @@ public class CustomerController {
 //		submitApp();
 	}
 
-//	private void submitApp() {
-//		customerReg = customerService.createRegCustomer(customer.getFirstName(), customer.getLastName(),
-//				customer.getUserName(), customer.getPassWord(), balance, customer.getAddress(),
-//				customer.getsSecurity(), customer.getRegistered(), customer.getIsActive());
-//		if (customerService.addCustomer(customerReg)) {
-//			System.out.println("New customer " + customerReg.getFirstName() + " was added.");
-//		} else {
-//			System.out.println("Problem adding customer, please try again");
-//		}
-//		
-//	}
-
 	public Customer getTransactionsMenu(Customer customer) {
 //		CustomerService customerService = new CustomerService();
 		String ans;
@@ -49,10 +37,10 @@ public class CustomerController {
 		System.err.println("Good news, " + customer.getFirstName() + " loggin was successfull!");
 
 		do {
-			System.out.println("What would you like to do today?");
+			System.out.println("What would you like to do today?\n");
 			System.out.println("1.Make a deposit");
 			System.out.println("2.Make a withdrawal");
-			System.out.println("3.Transfer funds between your accounts");
+			System.out.println("3.Transfer from your account");
 			System.out.println("4.Balance Inquiry");
 			System.out.println("5.Exit menu");
 
@@ -68,7 +56,6 @@ public class CustomerController {
 					System.err.println("Must deposit an amount over $0 \n");
 				}
 
-//			System.out.println("Customer has deposited " + deposit + "into " + customer.getBalance());
 				break;
 			case "2":
 				System.out.println("Enter amount you would like to withdraw:");
@@ -79,14 +66,14 @@ public class CustomerController {
 							+ " tried to withdraw an amount greater than avialable in account. ");
 					System.err.println("You do not have enough funds to withdraw $" + response + "\n");
 				} else {
-					customerService.withdraw(response);
+					customerService.withdraw(customer, response);
 				}
 				break;
 			case "3":
-
+				openTransfer(customer);
 				break;
 			case "4":
-
+				showBalance(customer);
 				break;
 
 			case "5":
@@ -105,6 +92,31 @@ public class CustomerController {
 //		while (customer.getLoggedIn());
 		return customer;
 
+	}
+
+	private void openTransfer(Customer customer) {
+		try {
+			System.out.println("Enter customer name who you are sending funds:");
+			String firstName = scan.nextLine();
+			System.out.println("Enter amount you would like to send:");
+			String withdraw = scan.nextLine();
+//		response = Integer.parseInt(response);
+			if (Integer.parseInt(withdraw) > customer.getCheckingBalance()) {
+				log.warn(customer.getFirstName() + " tried to withdraw an amount greater than avialable in account. ");
+				System.err.println("You do not have enough funds to withdraw $" + withdraw + "\n");
+			} else {
+				customerService.withdrawTransfer(customer, firstName, withdraw);
+			}
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void showBalance(Customer customer) {
+		System.out.println("-----------------------------------");
+		log.info("Current balance " + customer.getCheckingBalance());
+		System.out.println("-----------------------------------");
 	}
 
 	public void addCustomer() {

@@ -52,6 +52,62 @@ public class CustomerDAOImp implements CustomerDAO {
 		return null;
 	}
 
+	public boolean withdrawAccount(Customer customer, int newBalance) {
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			System.out.println(customer.getId());
+
+			String sql = "UPDATE customers SET account_balance = ? WHERE id =" + customer.getId();
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			statement.setInt(1, newBalance);
+			statement.executeUpdate();
+			System.out.println(customer.getCheckingBalance());
+
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
+	}
+
+	public boolean depositAccount(Customer customer, int newBalance) {
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			System.out.println(customer.getId());
+
+			String sql = "UPDATE customers SET account_balance = ? WHERE id =" + customer.getId();
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			statement.setInt(1, newBalance);
+			statement.executeUpdate();
+			System.out.println(customer.getCheckingBalance());
+//			ResultSet result = statement.executeQuery(sql);
+//			Customer customer = new Customer();
+
+//			while (result.next()) {
+//				customer.setFirstName(result.getString("first_name"));
+//				customer.setLastName(result.getString("last_name"));
+//				customer.setPassword(result.getString("password"));
+//				customer.setIsActive(result.getBoolean("active"));
+//				customer.setRegistered(result.getBoolean("registered"));
+//				customer.setDateCreated(result.getDate("account_created"));
+//				customer.setId(result.getInt("id"));
+//			}
+
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
+	}
+
 	@Override
 	public Customer findById(int id) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
@@ -83,15 +139,15 @@ public class CustomerDAOImp implements CustomerDAO {
 
 	@Override
 	public boolean updateCustomer(Customer customer) {
-		// TODO Auto-generated method stub
+		// UPDATE CUSTOMERS SET ACCOUNT_BALANCE = 2400 WHERE user_name = 'Teak22';
 		return false;
 	}
 
 	@Override
 	public boolean addCustomer(Customer customer) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "INSERT INTO customers(first_name, last_name, user_name, password, account_balance, active , registered)"
-					+ " VALUES(?,?,?,?,?,?,?);";
+			String sql = "INSERT INTO customers(first_name, last_name, user_name, password, account_balance, active , registered,address)"
+					+ " VALUES(?,?,?,?,?,?,?,?);";
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 
@@ -100,11 +156,11 @@ public class CustomerDAOImp implements CustomerDAO {
 			statement.setString(++index, customer.getFirstName());
 			statement.setString(++index, customer.getLastName());
 			statement.setString(++index, customer.getUserName());
-			statement.setString(++index, customer.getPassWord());
+			statement.setString(++index, customer.getPassword2());
 			statement.setInt(++index, customer.getCheckingBalance());
 			statement.setBoolean(++index, customer.getIsActive());
 			statement.setBoolean(++index, customer.getRegistered());
-
+			statement.setString(++index, customer.getAddress());
 			statement.execute();
 			return true;
 
@@ -217,6 +273,31 @@ public class CustomerDAOImp implements CustomerDAO {
 			System.out.println(ex.getMessage());
 		}
 		return affectedrows;
+	}
+
+	@Override
+	public boolean withdrawTransfer(Customer customer, String firstName, int newBalance) {
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			System.out.println(customer.getId());
+
+//			String sql = "UPDATE customers SET account_balance = ? WHERE id =" + customer.getId();
+			String sql = "UPDATE customers SET account_balance =  account_balance + ? WHERE first_name = " + "'"
+					+ firstName + "'";
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			statement.setInt(1, newBalance);
+			statement.executeUpdate();
+			System.out.println(customer.getCheckingBalance());
+
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
 	}
 
 }

@@ -26,8 +26,6 @@ public class ApplicationsController {
 			if (response.equals("1") || response.equals("yes")) {
 				log.info(customer.toString());
 				submitApp(customer);
-			} else {
-				return customer;
 			}
 
 //			System.out.println("\n\n" + "1.Submit Application \n" + "4.Back to main menu. \n");
@@ -43,8 +41,10 @@ public class ApplicationsController {
 		System.err.println(
 				"Excellent, " + customer.getFirstName() + " ,lets get a few more details before submitting \n");
 		System.out.println("Enter last 4 digits of social security number");
+
 		String sSecurity = scan.nextLine();
 		customer.setsSecurity(sSecurity);
+
 		System.out.println("Enter starting checking balance");
 		int balance = scan.nextInt();
 		scan.nextLine();
@@ -57,8 +57,8 @@ public class ApplicationsController {
 		System.err.println("\nPlease confirm your details:");
 		System.out.println("Name: " + customer.getFirstName() + " " + customer.getLastName() + ",\n" + "Username: "
 				+ customer.getUserName() + ",\n" + "Address: " + customer.getAddress() + ",\n" + "Password: "
-				+ customer.getPassWord() + ",\n " + "Starting Balance: " + customer.getCheckingBalance() + ",\n"
-				+ " is registered? " + customer.getRegistered() + " is active? " + ",\n " + customer.getIsActive()
+				+ customer.getPassWord() + ",\n" + "Starting Balance: " + customer.getCheckingBalance() + ",\n"
+				+ "is registered? " + customer.getRegistered() + ",\n" + "is active? " + customer.getIsActive()
 				+ ",\n");
 		System.out.println("\nDoes everything look correct?");
 		String confirmAns = scan.nextLine();
@@ -68,7 +68,7 @@ public class ApplicationsController {
 
 			customer = customerService.createRegCustomer(customer.getFirstName(), customer.getLastName(),
 					customer.getUserName(), customer.getPassWord(), customer.getCheckingBalance(),
-					customer.getAddress(), customer.getsSecurity(), customer.getRegistered(), customer.getIsActive());
+					customer.getAddress(), customer.getRegistered(), customer.getIsActive());
 //			customerService.addCustomer(customer);
 			if (customerService.addCustomer(customer)) {
 				System.out.println("====New customer " + customer.getFirstName() + " was added.====\n");

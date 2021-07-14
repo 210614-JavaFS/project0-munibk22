@@ -12,9 +12,9 @@ import com.revature.models.Customer;
 public class EmployeeService {
 	private static EmployeeDAO employeeDao = new EmployeeDaoImpl();
 
-	public boolean updateActive() {
+	public void updateActive(int id) {
 
-		return employeeDao.updateActive();
+		employeeDao.updateActive(id);
 
 	};
 

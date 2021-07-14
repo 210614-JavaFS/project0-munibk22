@@ -10,7 +10,7 @@ import java.util.Date;
 public class Customer extends Character {
 //	private static Scanner scan = new Scanner(System.in);
 //	private static Logger log = LoggerFactory.getLogger(Character.class);
-
+	private String password;
 	private String userName;
 	private String address;
 //	public boolean isLoggedIn = false;
@@ -23,13 +23,13 @@ public class Customer extends Character {
 
 	// Constructor with fields
 	public Customer(String firstName, String lastName, String userName, String password, int checkingBalance,
-			String address, String sSecurity, boolean isRegistered, boolean isActive) {
-		super(firstName, lastName, sSecurity, checkingBalance, isRegistered, isActive);
+			String address, boolean isRegistered, boolean isActive) {
+		super(firstName, lastName, address, checkingBalance, isRegistered, isActive);
 		this.address = address;
-//		setRegistered(setConfirm(confirmAns));
+		this.password = password;
 		this.userName = userName;
 		setConfirm(confirmAns);
-		this.sSecurity = sSecurity;
+//		this.sSecurity = sSecurity;
 
 	}
 
@@ -42,6 +42,14 @@ public class Customer extends Character {
 
 	public Account getAccount() {
 		return account;
+	}
+
+	public String getPassword2() {
+		return password;
+	}
+
+	public void setPassword2(String password) {
+		this.password = password;
 	}
 
 	public String getsSecurity() {
@@ -71,9 +79,6 @@ public class Customer extends Character {
 	}
 
 	// Setters
-//	public void setRegistered(boolean setRegistered) {
-//		this.isRegistered = setRegistered;
-//	}
 
 	public void setReg(boolean setRegistered) {
 		this.reg = setRegistered;
@@ -101,18 +106,21 @@ public class Customer extends Character {
 	// toString
 	@Override
 	public String toString() {
-		return "RegisteredCustomer [userName=" + userName + ", isRegistered=" + getRegistered() + ", LastName ="
-				+ getLastName() + ", FirstName=" + getFirstName() + ", IsActive=" + getIsActive() + ", PassWord="
-				+ getPassWord() + "]";
+		return "RegisteredCustomer [id " + getId() + ", userName=" + userName + ", isRegistered=" + getRegistered()
+				+ ", LastName =" + getLastName() + ", FirstName=" + getFirstName() + ", IsActive=" + getIsActive()
+				+ ", PassWord=" + getPassWord() + "]";
 	}
 
-	// HasCode & Equals
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + ((account == null) ? 0 : account.hashCode());
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + (getRegistered() ? 1231 : 1237);
+		result = prime * result + id;
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + (reg ? 1231 : 1237);
+		result = prime * result + ((sSecurity == null) ? 0 : sSecurity.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
@@ -126,12 +134,29 @@ public class Customer extends Character {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
+		if (account == null) {
+			if (other.account != null)
+				return false;
+		} else if (!account.equals(other.account))
+			return false;
 		if (address == null) {
 			if (other.address != null)
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (getRegistered() != other.getRegistered())
+		if (id != other.id)
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (reg != other.reg)
+			return false;
+		if (sSecurity == null) {
+			if (other.sSecurity != null)
+				return false;
+		} else if (!sSecurity.equals(other.sSecurity))
 			return false;
 		if (userName == null) {
 			if (other.userName != null)
@@ -140,14 +165,6 @@ public class Customer extends Character {
 			return false;
 		return true;
 	}
-
-//	public boolean isLoggedIn() {
-//		return isLoggedIn;
-//	}
-//
-//	public void setLoggedIn(boolean isLoggedIn) {
-//		this.isLoggedIn = isLoggedIn;
-//	}
 
 	/**
 	 * @return the confirmAns

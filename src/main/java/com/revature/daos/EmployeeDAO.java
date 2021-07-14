@@ -14,7 +14,7 @@ public interface EmployeeDAO {
 
 	public List<Customer> findByStatus();
 
-	public boolean updateActive();
+	public Customer updateActive(int id);
 
 	public Customer findByName(String firstName);
 

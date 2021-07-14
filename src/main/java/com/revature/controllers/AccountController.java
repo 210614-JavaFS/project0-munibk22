@@ -53,7 +53,7 @@ public class AccountController {
 							+ " tried to withdraw an amount greater than avialable in account. ");
 					System.err.println("You do not have enough funds to withdraw $" + response + "\n");
 				} else {
-					customerService.withdraw(response);
+					customerService.withdraw(customer, response);
 				}
 				break;
 			case "3":

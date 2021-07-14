@@ -18,10 +18,10 @@ public class CustomerService {
 	private static Logger log = LoggerFactory.getLogger(CustomerService.class);
 	private static CustomerDAO customerDAO = new CustomerDAOImp();
 
-	public Customer createRegCustomer(String firstName, String lastName, String userName, String password, int balance, String address, String sSecurity, boolean isRegistered, boolean isActive) {
+	public Customer createRegCustomer(String firstName, String lastName, String userName, String password, int balance,
+			String address, boolean isRegistered, boolean isActive) {
 
-		return new Customer(firstName, lastName, userName, password, balance, address, sSecurity, isRegistered,
-				isActive);
+		return new Customer(firstName, lastName, userName, password, balance, address, isRegistered, isActive);
 	}
 
 	public List<Customer> getAllCustomers() {
@@ -33,8 +33,8 @@ public class CustomerService {
 	}
 
 	public boolean addCustomer(Customer customer) {
-		 customerDAO.addCustomer(customer);
-		 return true;
+		customerDAO.addCustomer(customer);
+		return true;
 	}
 
 	public void removeCustomer(String response) {
@@ -45,29 +45,84 @@ public class CustomerService {
 		customerDAO.deleteCustomerid(id);
 	}
 
-	public void setDeposit(Customer customer, String deposit) {
-//		customer.getBalance();
+	public boolean setDeposit(Customer customer, String deposit) {
+
 		System.out.println("Previous balance " + customer.getCheckingBalance());
 		int parseDeposit = Integer.parseInt(deposit);
+		int newBalance = customer.getCheckingBalance() + parseDeposit;
 		if (parseDeposit != 0) {
+
 			customer.setCheckingBalance(customer.getCheckingBalance() + parseDeposit);
+
+			System.out.println("-----------------------------------");
+			log.info("New balance " + customer.getCheckingBalance() + "\n");
+
+			System.out.println("-----------------------------------");
+		} else {
+			System.out.println("Must deposit an amount greater than $0");
+		}
+		return customerDAO.depositAccount(customer, newBalance);
+
+	}
+
+	public boolean withdraw(Customer customer, String withdraw) {
+
+		System.out.println("Previous balance " + customer.getCheckingBalance());
+		int parseWithdraw = Integer.parseInt(withdraw);
+		int newBalance = customer.getCheckingBalance() + parseWithdraw;
+		if (parseWithdraw < customer.getCheckingBalance()) {
+
+			customer.setCheckingBalance(customer.getCheckingBalance() - parseWithdraw);
 
 			System.out.println("-----------------------------------");
 			log.info("New balance " + customer.getCheckingBalance() + "\n");
 			System.out.println("-----------------------------------");
 		} else {
+			log.warn("user tried to withdraw more funds than in the accout.");
+			System.out.println("Cannot withdraw more than account balance");
+		}
+		return customerDAO.withdrawAccount(customer, newBalance);
+	}
+
+	public boolean setDepositTransfer(Customer customer, String deposit) {
+
+		System.out.println("Previous balance " + customer.getCheckingBalance());
+		int parseDeposit = Integer.parseInt(deposit);
+		int transferBalance = customer.getCheckingBalance() + parseDeposit;
+
+		if (parseDeposit != 0) {
+
+			customer.setCheckingBalance(customer.getCheckingBalance() - parseDeposit);
+
+			System.out.println("-----------------------------------");
+			log.info("New balance " + customer.getCheckingBalance() + "\n");
+
+			System.out.println("-----------------------------------");
+		} else {
 			System.out.println("Must deposit an amount greater than $0");
 		}
+		return customerDAO.depositAccount(customer, transferBalance);
 
 	}
-//	public static Object createNewCustomer(String name, String address, String password) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
-	public void withdraw(String response) {
-		System.out.println(response);
+	public boolean withdrawTransfer(Customer customer, String firstName, String withdraw) {
 
+		System.out.println("Previous balance " + customer.getCheckingBalance());
+
+		int parseWithdraw = Integer.parseInt(withdraw);
+		int newBalance = customer.getCheckingBalance() - parseWithdraw;
+		if (parseWithdraw < customer.getCheckingBalance()) {
+			customer.setCheckingBalance(customer.getCheckingBalance() - parseWithdraw);
+			System.out.println("-----------------------------------");
+			log.info("New balance " + customer.getCheckingBalance() + "\n");
+			System.out.println("-----------------------------------");
+		} else {
+			log.warn("user tried to withdraw more funds than in the accout.");
+			System.out.println("Cannot withdraw more than account balance");
+		}
+		customerDAO.withdrawAccount(customer, newBalance);
+
+		return customerDAO.withdrawTransfer(customer, firstName, parseWithdraw);
 	}
 
 //	public static void save(Customer customerReg) {

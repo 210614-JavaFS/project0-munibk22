@@ -76,9 +76,38 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public boolean updateActive() {
-		// TODO Auto-generated method stub
-		return false;
+	public Customer updateActive(int id) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "UPDATE customers SET active = true WHERE id = ?";
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+
+			statement.executeUpdate();
+			Customer customer = new Customer();
+
+//			while (result.next()) {
+//				customer.setId(result.getInt("id"));
+//				customer.setFirstName(result.getString("first_name"));
+//				customer.setLastName(result.getString("last_name"));
+//				customer.setUserName(result.getString("user_name"));
+//				customer.setPassword(result.getString("password"));
+//				customer.setCheckingBalance(result.getInt("account_balance"));
+//				customer.setIsActive(result.getBoolean("active"));
+//				customer.setRegistered(result.getBoolean("registered"));
+//				customer.setDateCreated(result.getDate("account_created"));
+//
+//			}
+			log.info("Customer's account at id " + id + " was approved. \n");
+
+			return customer;
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+//		return customer;
+		return null;
+
 	}
 
 	@Override

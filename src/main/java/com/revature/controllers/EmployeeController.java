@@ -26,19 +26,29 @@ public class EmployeeController {
 	private static CustomerDAO customerDAO = new CustomerDAOImp();
 	private static AccountService accountService = new AccountService();
 	private static EmployeeService employeeService = new EmployeeService();
+	private static AdminController adminC = new AdminController();
 
 	public Employee employeeLogin(Employee employee) {
 
 		System.out.println("Enter username");
 		String userNameScan = scan.nextLine();
+		if (userNameScan.toLowerCase().equals("admin")) {
+			adminC.queryAdmin();
+		}
 		System.out.println("Enter password");
 		String passwordScan = scan.nextLine();
 
 		employee = employeeService.getEUserName(userNameScan);
-		System.out.println(employee);
-		scan.nextLine();
-		employee.setLoggedIn();
-//		employeeMenu(employee);
+		System.out.println(employee.getLoggedIn());
+		if (employee.getUserName().equals(userNameScan) && employee.getPassWord().equals(passwordScan)) {
+
+			employee.setLoggedIn();
+			employee.setRegistered(true);
+			return employee;
+		} else {
+			log.error("Incorrect username or password");
+		}
+
 		return employee;
 	}
 
@@ -187,13 +197,15 @@ public class EmployeeController {
 //	}
 
 	private void approveAccounts() {
-		boolean customers = employeeService.updateActive();
-		System.err.println("\nEnter customer user name");
-		String response = scan.nextLine();
-		System.out.println("==========");
-//		for (Customer c : customers) {
-//			System.out.println(c);
-//		}
+
+		System.err.println("\nEnter customer id");
+
+		int response = Integer.parseInt(scan.nextLine());
+//		scan.nextLine();
+
+//		Customer customers =
+		employeeService.updateActive(response);
+
 		System.out.println("========== \n");
 
 	}

@@ -18,7 +18,7 @@ public abstract class Character {
 
 	private String firstName;
 	private String lastName;
-	private String password = null;
+	private String password;
 	private String passConfirm;
 	private boolean passMatch = false;
 	private boolean isLoggedIn = false;
@@ -46,10 +46,6 @@ public abstract class Character {
 		super();
 	}
 
-//	public void createPlayer() {
-//		customer=CustomerService.createNewCustomer(this.name,this.address,this.password);
-//	}
-
 	// Setters
 
 	public void setLoggedIn() {
@@ -65,7 +61,6 @@ public abstract class Character {
 
 //		}
 	}
-	
 
 	public Date getDateCreated() {
 		return dateCreated;
@@ -92,20 +87,20 @@ public abstract class Character {
 	}
 
 	public void setPassword(String setPassword) {
+		this.password = setPassword;
+//		while (this.password == null) {
+//			if (setPassword.length() <= 2) {
+//				log.warn("User tried to create password less than 2 characters");
+//				System.err.println("Password must be more than 2 characters long");
+//				System.out.println("What is your password?");
+//				String setPassword2 = scan.nextLine();
+//				setPassword(setPassword2);
+//
+//			} else {
+//				this.password = setPassword;
+//			}
 
-		while (this.password == null) {
-			if (setPassword.length() <= 2) {
-				log.warn("User tried to create password less than 2 characters");
-				System.err.println("Password must be more than 2 characters long");
-				System.out.println("What is your password?");
-				String setPassword2 = scan.nextLine();
-				setPassword(setPassword2);
-
-			} else {
-				this.password = setPassword;
-			}
-
-		}
+//		}
 
 	}
 

@@ -4,22 +4,21 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.revature.models.Employee;
 import com.revature.models.Customer;
 import com.revature.services.CustomerService;
 import com.revature.services.EmployeeService;
 
 public class StartMenuController {
 
-//	private RegisterMenuController registerMenu = new RegisterMenuController();
 	private Logger log = LoggerFactory.getLogger(StartMenuController.class);
 	private static Scanner scan = new Scanner(System.in);
-	private static String ans;
 	private static String setPassword;
 	private static String setPassConfirm;
 	private static boolean pwMatch = false;
 	private static CustomerService customerService = new CustomerService();
 	private static EmployeeService employeeService = new EmployeeService();
+	private static Customer customer = new Customer();
+	private static BankMenuController bankMenu = new BankMenuController();
 
 	public Customer getCustomer() {
 
@@ -28,7 +27,8 @@ public class StartMenuController {
 		if (response.equals("yes")) {
 			System.err.println("Welcome to customer login\n");
 
-			Customer customer = customerLogin();
+//			Customer customer = 
+			customerLogin(customer);
 			return customer;
 
 		} else if (response.toLowerCase().equals("no")) {
@@ -53,21 +53,31 @@ public class StartMenuController {
 
 //	}
 
-	private Customer customerLogin() {
-		Customer customer = new Customer();
+	private Customer customerLogin(Customer customer) {
+		ApplicationsController appController = new ApplicationsController();
+
+//		Customer customer = new Customer();
 		System.out.println("Enter username");
 		String userNameScan = scan.nextLine();
 		System.out.println("Enter password");
 		String passwordScan = scan.nextLine();
-		customer = employeeService.getUserName(userNameScan);
 
-		if (customer.getUserName().equals(userNameScan) && customer.getPassWord().equals(passwordScan)) {
+		customer = employeeService.getUserName(userNameScan);
+		if (customer.getIsActive() == false) {
+//			log.warn("Customer tried to access account before approval.");
+//			System.out.println("You must submit an application for approval before logging on.");
+//			customer = appController.getAppMenu(customer);
+			customer.setRegistered(true);
+			bankMenu.bankMenu(customer);
+
+		} else if (customer.getUserName().equals(userNameScan) && customer.getPassWord().equals(passwordScan)) {
 			System.out.println("****login was a success****");
 			customer.setReg(true);
 			customer.setRegistered(true);
 			transactionMenu(customer);
 			return customer;
-
+		} else {
+			log.error("User name not found");
 		}
 		return customer;
 	}
@@ -82,8 +92,8 @@ public class StartMenuController {
 		while (menuController) {
 
 			if (customer.getLoggedIn()) {
-				System.out
-						.println(customer.getFirstName() + customer.getLastName() + " was logged in successfully! \n");
+//				System.out
+//						.println(customer.getFirstName() ++ customer.getLastName() + " was logged in successfully! \n");
 				customer = customerController.getTransactionsMenu(customer);
 			}
 			menuController = false;
@@ -91,7 +101,6 @@ public class StartMenuController {
 		}
 
 	}
-	
 
 	public Customer newCustomerBuilder() {
 
@@ -141,8 +150,6 @@ public class StartMenuController {
 
 		return customer;
 	}
-
-	
 
 	private boolean passMatch(String pw, String confirmPW, String setFirstName) {
 		if (pw.equals(confirmPW)) {

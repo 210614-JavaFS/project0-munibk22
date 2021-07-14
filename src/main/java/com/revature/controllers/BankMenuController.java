@@ -25,18 +25,6 @@ public class BankMenuController {
 			String answer = scan.nextLine();
 
 			switch (answer) {
-//			case "1":
-//				if (!customerBank.isRegistered()) {
-//				System.out.println("Excellent, " + customer.getFirstName()
-//						+ " let's submit your application for approval. Most accounts are approved within 24 hours. ");
-//				customer = appController.getAppMenu(customer);
-//				registerMenu.registrationMenu();
-//				break;
-//				} else {
-//					System.out.println("\nYou can: \n" + "1.Submit Application");
-////					System.out.println(customerReg.getBalance());
-//					break;
-//				}
 
 			case "1":
 				System.out.println(
@@ -57,6 +45,7 @@ public class BankMenuController {
 			case "3":
 				System.out.println("Thank you for visiting!");
 				customer.setReg(false);
+
 				break;
 			case "4":
 				System.out.println("Thank you for visiting!");
@@ -69,17 +58,6 @@ public class BankMenuController {
 				break;
 			}
 
-//		try (Scanner scan2 = new Scanner(System.in)) {
-//
-
-//			}
-//		} catch (Exception e) {
-//			log.warn("User entered invalid  choice.");
-////			e.printStackTrace();
-//			System.out.println("Not a valid choice, please try again.");
-//			startMenu(customer);
-//
-//		}
 		}
 	}
 
@@ -88,10 +66,8 @@ public class BankMenuController {
 		customer.setLoggedIn();
 		boolean menuController = true;
 		CustomerController customerController = new CustomerController();
-//BankCustomer customerBank = new BankCustomer(customerBank.getFirstName(), customerBank.getLastName(),
-//				customerBank.getPassWord(), 200, "4241");
+
 		while (menuController) {
-//			CustomerUtil.customerUtil(customer);
 			if (customer.getLoggedIn()) {
 				System.out
 						.println(customer.getFirstName() + customer.getLastName() + " was logged in successfully! \n");

@@ -52,32 +52,38 @@ public class Driver {
 		do {
 
 			System.out.println("\n*****Hello, Welcome to Revature2Vanquish Bank***** \n");
-			System.err.println("Are you a current employee? yes/no");
+			System.err.println("Are you a current employee? yes/no/exit to exit");
 			ans = scan.nextLine();
 			if (ans.toLowerCase().equals("yes") || ans.toLowerCase().equals("ye")) {
 				queryEmployee();
+			} else if (ans.toLowerCase().equals("no")) {
+				Customer customer = startMenuController.getCustomer();
+				initMenu(customer);
+			} else if (ans.toLowerCase().equals("exit")) {
+				System.exit(0);
 			}
-		} while (!ans.equals("no"));
+
+		} while (!ans.equals("exit"));
 
 	}
 
 	public static void queryEmployee() {
 		Employee employee = new Employee();
-		employee=empController.employeeLogin(employee);
-System.out.println(employee);
-		if(employee.getLoggedIn()) {
+		employee = empController.employeeLogin(employee);
+		System.out.println(employee);
+		if (employee.getLoggedIn()) {
 			empController.employeeMenu(employee);
 		}
-		
+
 	}
 
 	public static void initMenu(Customer customerReg) {
+		
 		while (customerReg.getRegistered()) {
-//			BankCustomer customerBank = new BankCustomer(customerReg.getFirstName(), customerReg.getLastName(),
-//					customerReg.getPassWord(), 200, "4241");
 			System.out.println(
-					"Customer " + customerReg.getFirstName() + " " + customerReg.getLastName() + " is registered. \n");
+			"Customer " + customerReg.getFirstName() + " " + customerReg.getLastName() + " is registered. \n");
 			bankMenu.bankMenu(customerReg);
+			
 			System.out.println("Do you want to leave the Bank?");
 			String response = scan.nextLine();
 
@@ -85,7 +91,7 @@ System.out.println(employee);
 			case "yes":
 				// Save customer
 				customerReg.setRegistered(false);
-
+				
 				break;
 			case "no":
 				customerReg.setReg(true);
@@ -94,12 +100,13 @@ System.out.println(employee);
 				System.out.println("Not valid choice.");
 				break;
 			}
-			initialPrompt();
-			customerReg.setReg(true);
+//			initialPrompt();
+//			customerReg.setReg(true);
 //			customerReg = new Customer(customerReg.getFirstName(), customerReg.getLastName(),
 //					customerReg.getPassWord(), 200, "4241");
-			bankMenu.bankMenu(customerReg);
+//			bankMenu.bankMenu(customerReg);
 		}
+		initialPrompt();
 	}
 
 }
