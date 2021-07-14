@@ -105,7 +105,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 			e.printStackTrace();
 
 		}
-//		return customer;
+
 		return null;
 
 	}

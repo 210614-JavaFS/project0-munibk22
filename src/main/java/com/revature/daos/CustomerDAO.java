@@ -21,7 +21,7 @@ public interface CustomerDAO {
 
 	int deleteCustomerid(int id);
 
-	boolean depositAccount(Customer customer, int newBalance);
+	public boolean depositAccount(Customer customer, int newBalance);
 
 	public boolean withdrawAccount(Customer customer, int newBalance);
 

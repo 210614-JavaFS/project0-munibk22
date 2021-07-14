@@ -47,7 +47,7 @@ public class Driver {
 
 	}
 
-	private static void initialPrompt() {
+	public static void initialPrompt() {
 		String ans = null;
 		do {
 
@@ -78,12 +78,12 @@ public class Driver {
 	}
 
 	public static void initMenu(Customer customerReg) {
-		
+
 		while (customerReg.getRegistered()) {
 			System.out.println(
-			"Customer " + customerReg.getFirstName() + " " + customerReg.getLastName() + " is registered. \n");
+					"Customer " + customerReg.getFirstName() + " " + customerReg.getLastName() + " is registered. \n");
 			bankMenu.bankMenu(customerReg);
-			
+
 			System.out.println("Do you want to leave the Bank?");
 			String response = scan.nextLine();
 
@@ -91,7 +91,7 @@ public class Driver {
 			case "yes":
 				// Save customer
 				customerReg.setRegistered(false);
-				
+
 				break;
 			case "no":
 				customerReg.setReg(true);

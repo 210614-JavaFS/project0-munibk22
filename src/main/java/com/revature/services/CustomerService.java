@@ -1,10 +1,9 @@
 package com.revature.services;
 
 import java.util.ArrayList;
-//import java.util.Scanner;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+
 import java.util.List;
+import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +16,7 @@ public class CustomerService {
 //	Customers customer;
 	private static Logger log = LoggerFactory.getLogger(CustomerService.class);
 	private static CustomerDAO customerDAO = new CustomerDAOImp();
+	private static Scanner scan = new Scanner(System.in);
 
 	public Customer createRegCustomer(String firstName, String lastName, String userName, String password, int balance,
 			String address, boolean isRegistered, boolean isActive) {
@@ -48,8 +48,10 @@ public class CustomerService {
 	public boolean setDeposit(Customer customer, String deposit) {
 
 		System.out.println("Previous balance " + customer.getCheckingBalance());
+
 		int parseDeposit = Integer.parseInt(deposit);
 		int newBalance = customer.getCheckingBalance() + parseDeposit;
+
 		if (parseDeposit != 0) {
 
 			customer.setCheckingBalance(customer.getCheckingBalance() + parseDeposit);

@@ -78,15 +78,12 @@ public class CustomerDAOImp implements CustomerDAO {
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			System.out.println(customer.getId());
-
-			String sql = "UPDATE customers SET account_balance = ? WHERE id =" + customer.getId();
+			String sql = "UPDATE customers SET account_balance = account_balance + ? WHERE id =" + customer.getId();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 
 			statement.setInt(1, newBalance);
 			statement.executeUpdate();
-			System.out.println(customer.getCheckingBalance());
 //			ResultSet result = statement.executeQuery(sql);
 //			Customer customer = new Customer();
 
@@ -117,7 +114,7 @@ public class CustomerDAOImp implements CustomerDAO {
 
 			statement.setInt(1, id);
 
-			ResultSet result = statement.executeQuery(sql);
+			ResultSet result = statement.executeQuery();
 			Customer customer = new Customer();
 
 			while (result.next()) {
@@ -201,7 +198,6 @@ public class CustomerDAOImp implements CustomerDAO {
 
 	@Override
 	public Customer findById(String id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

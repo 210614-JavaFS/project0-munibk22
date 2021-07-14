@@ -17,7 +17,7 @@ import com.revature.services.EmployeeService;
 
 public class EmployeeController {
 	private static Scanner scan = new Scanner(System.in);
-	private static Logger log = LoggerFactory.getLogger(CustomerController.class);
+	private static Logger log = LoggerFactory.getLogger(EmployeeController.class);
 	private static CustomerService customerService = new CustomerService();
 	private static boolean pwMatch = false;
 	private static String setPassConfirm;
@@ -61,19 +61,14 @@ public class EmployeeController {
 
 		do {
 			System.out.println("What would you like to do today?");
-			System.out.println("1.Make a deposit");
-			System.out.println("2.Make a withdrawal");
-			System.out.println("3.Transfer funds between your accounts");
-			System.out.println("4.Remove a customer");
-			System.out.println("5.See all customers");
-			System.out.println("6.See one customer");
-			System.out.println("7.Add a customer");
-			System.out.println("8.View accounts pending approval");
-			System.out.println("9.Account information");
-			System.out.println("10.View account balances");
-			System.out.println("11.Personal information");
-			System.out.println("12.See all accounts");
-			System.out.println("13.Exit menu");
+			System.out.println("1.See all customers");
+			System.out.println("2.See one customer");
+			System.out.println("3.View accounts pending approval");
+			System.out.println("4.Account information");
+			System.out.println("5.View account balances");
+			System.out.println("6.Personal information");
+			System.out.println("7.See all accounts");
+			System.out.println("8.Exit menu");
 
 			ans = scan.nextLine();
 			switch (ans) {

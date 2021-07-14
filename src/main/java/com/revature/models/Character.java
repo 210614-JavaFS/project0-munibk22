@@ -11,7 +11,7 @@ import com.revature.controllers.RegisterMenuController;
 import com.revature.controllers.StartMenuController;
 
 public abstract class Character {
-	private Logger log = LoggerFactory.getLogger(Register.class);
+	private Logger log = LoggerFactory.getLogger(Character.class);
 	private Scanner scan = new Scanner(System.in);
 	private RegisterMenuController register = new RegisterMenuController();
 	public StartMenuController startMenu;

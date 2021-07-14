@@ -3,7 +3,6 @@ package com.revature.controllers;
 import java.util.Scanner;
 import com.revature.Driver;
 import com.revature.models.Customer;
-import com.revature.models.Register;
 import com.revature.models.Customer;
 import com.revature.services.CustomerService;
 
